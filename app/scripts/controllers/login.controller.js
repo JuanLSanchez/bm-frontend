@@ -18,7 +18,8 @@
             vm.rememberMe = true;
         }
 
-        function login() {
+        function login(event) {
+            event.preventDefault();
             Auth.login({
                 username: vm.username,
                 password: vm.password,

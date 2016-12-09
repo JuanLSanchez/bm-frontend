@@ -10,12 +10,10 @@
             data: {
                 pageTitle: 'Inicio'
             },
-            ncyBreadcrumb: {
-                skip: true
-            },
             views: {
-                'content@': {
+                'container@': {
                     templateUrl: 'views/home.html',
+                    controllerAs: 'vm'
                 }
             }
         })

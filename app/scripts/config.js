@@ -8,7 +8,14 @@
         $qProvider.errorOnUnhandledRejections(false);
         $urlRouterProvider.otherwise('/');
         $stateProvider.state('site', {
-            'abstract': true
+            'abstract': true,
+            views: {
+                'navbar@': {
+                    templateUrl: 'views/navbar.html',
+                    controller: 'NavbarController',
+                    controllerAs: 'vm'
+                }
+            }
         });
     }
 })();

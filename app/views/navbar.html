@@ -1,0 +1,16 @@
+<div class="lock-size" layout="row" layout-align="lefth center">
+  <md-fab-speed-dial md-open="vm.nav.isOpen" md-direction="{{vm.nav.selectedDirection}}"
+                     ng-class="vm.nav.selectedMode" ng-show="vm.isAuthenticated()==true">
+    <md-fab-trigger>
+      <md-button aria-label="menu" class="md-fab md-primary">
+        <md-icon><i class="material-icons">menu</i></md-icon>
+      </md-button>
+    </md-fab-trigger>
+
+    <md-fab-actions>
+      <md-button aria-label="comment" class="md-icon-button" ng-click="vm.logout()">
+        <md-icon><i class="material-icons">exit_to_app</i></md-icon>
+      </md-button>
+    </md-fab-actions>
+  </md-fab-speed-dial>
+</div>

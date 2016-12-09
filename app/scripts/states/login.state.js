@@ -10,11 +10,8 @@
             data: {
                 pageTitle: 'Login'
             },
-            ncyBreadcrumb: {
-                skip: true
-            },
             views: {
-                'content@': {
+                'container@': {
                     templateUrl: 'views/login.html',
                     controller: 'LoginController',
                     controllerAs: 'vm'
