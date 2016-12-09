@@ -1,0 +1,51 @@
+<div layout="row" class="zero" layout-align="center up">
+  <md-card flex-lg="50">
+
+
+    <md-table-container>
+      <table md-table md-row-select multiple ng-model="vm.incomes" md-progress="vm.promise">
+        <thead md-head>
+        <tr md-row>
+          <th md-column><span>Fecha</span></th>
+          <th md-column><span>Nombre</span></th>
+          <th md-column><span>Nif</span></th>
+          <th md-column md-numeric>Base</th>
+          <th md-column md-numeric>Iva</th>
+        </tr>
+        </thead>
+        <tbody md-body>
+        <tr md-row md-select="income" md-select-id="name" md-auto-select ng-repeat="income in vm.data">
+          <td md-cell>{{income.income_date}}</td>
+          <td md-cell>{{income.name}}</td>
+          <td md-cell>{{income.nif}}</td>
+          <td md-cell>{{income.base}} €</td>
+          <td md-cell>{{income.iva}} %</td>
+        </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+
+    <md-table-pagination md-limit="vm.pageSize" md-limit-options="[5, 10, 15]"
+                         md-page="1" md-page-select="true" md-on-paginate="vm.loadPage"
+                         md-total="{{(1+vm.links.last) * vm.pageSize}}"
+                         md-label="{{vm.mdLabel}}"></md-table-pagination>
+
+
+    <!--<md-list>
+      <md-list-item ng-repeat="income in vm.incomes" class="noright">
+        <p>
+          <span>{{income.income_date}}</span>
+        </p>
+        <p>
+          <span>{{income.name}}</span>
+        </p>
+        <p>
+          <span>{{income.nif}}</span>
+          <span>{{income.base}}</span>
+          <span>{{income.iva}}</span>
+        </p>
+        <md-divider></md-divider>
+      </md-list-item>
+    </md-list>-->
+  </md-card>
+</div>

@@ -16,5 +16,6 @@ angular
     'ngSanitize',
     'ngMaterial',
     'ui.router',
-    'ngStorage'
+    'ngStorage',
+    'md.data.table'
   ]);
