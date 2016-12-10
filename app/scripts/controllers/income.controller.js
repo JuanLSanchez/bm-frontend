@@ -10,9 +10,15 @@
         var page = 1;
         var pageSize = 10;
         var incomes = [];
+        var order = {
+            sort:'incomeDate',
+            dir:'desc'
+        };
 
         function loadPage(page, pageSize) {
-            vm.promise = IncomeService.resource.findAll({page: page - 1, size: pageSize}, function(result, headers) {
+            var query = {page: page - 1, size: pageSize, sort:order.sort + ',' + order.dir};
+            //query[order.sort + '.dir'] = order.dir;
+            vm.promise = IncomeService.resource.findAll(query, function(result, headers) {
                 vm.links = ParseLinks.parse(headers('link'));
                 while (vm.data.length > 0) {
                     vm.data.pop();
@@ -21,7 +27,18 @@
                     vm.data.push(result[i]);
                 }
             }).$promise;
-        };
+        }
+
+        function reOrder(sort) {
+            if (sort.substr(0, 1) == '-') {
+                order.sort = sort.substr(1);
+                order.dir = 'desc'
+            }else {
+                order.sort = sort;
+                order.dir = 'asc'
+            }
+            loadPage(vm.page, vm.pageSize);
+        }
 
         init();
 
@@ -38,6 +55,7 @@
                 page:'Pagina',
                 rowsPerPage:'Elementos por página'
             }
+            vm.reOrder = reOrder;
             loadPage(page, pageSize);
         }
     }
