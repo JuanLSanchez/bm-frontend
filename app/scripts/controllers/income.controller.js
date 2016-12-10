@@ -60,18 +60,20 @@
             incomes.forEach(function(income) {
                 text += income.income_date + ' ' + income.name + ' ' + income.base + '€, ';
             });
-            text = text.substr(0, text.length - 2)
-            var confirm = $mdDialog.confirm()
-              .title('¿Desea eliminar los ingresos seleccionados?')
-              .textContent(text)
-              .ariaLabel('Lucky day')
-              .targetEvent(ev)
-              .ok('Si')
-              .cancel('No');
+            text = text.substr(0, text.length - 2);
+            if (incomes.length > 0) {
+                var confirm = $mdDialog.confirm()
+                  .title('¿Desea eliminar los ingresos seleccionados?')
+                  .textContent(text)
+                  .ariaLabel('Lucky day')
+                  .targetEvent(ev)
+                  .ok('Si')
+                  .cancel('No');
 
-            $mdDialog.show(confirm).then(function () {
-                remove();
-            }, null);
+                $mdDialog.show(confirm).then(function () {
+                    remove();
+                }, null);
+            }
         }
 
         init();

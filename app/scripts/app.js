@@ -15,6 +15,8 @@ angular
     'ngResource',
     'ngSanitize',
     'ngMaterial',
+    'ngMessages',
+    'ngAria',
     'ui.router',
     'ngStorage',
     'md.data.table'

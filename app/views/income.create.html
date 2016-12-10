@@ -1,0 +1,41 @@
+<div layout="row" class="zero" layout-align="center up">
+  <div flex-lg="50" ng-cloak>
+    <md-card>
+      <div layout-margin>
+
+        <md-datepicker ng-model="vm.income.income_date" md-max-date="vm.max_date"></md-datepicker>
+
+        <md-input-container class="md-block">
+          <label>Nombre</label>
+          <md-icon class="material-icons">person</md-icon>
+          <input md-no-asterisk required name="name" ng-model="vm.income.name">
+        </md-input-container>
+
+        <md-input-container class="md-block">
+          <label>Nif</label>
+          <md-icon class="material-icons">assignment_ind</md-icon>
+          <input name="nif" ng-model="vm.income.nif">
+        </md-input-container>
+
+        <md-input-container class="md-block">
+          <label>Base</label>
+          <md-icon class="material-icons">euro_symbol</md-icon>
+          <input type="number" step="0.01" name="base" ng-model="vm.income.base">
+        </md-input-container>
+
+        <md-input-container class="md-block">
+          <label>IVA</label>
+          <md-icon class="material-icons">%</md-icon>
+          <input name="iva" ng-model="vm.income.iva">
+        </md-input-container>
+
+        <md-input-container class="md-block">
+          <label>Total</label>
+          <md-icon class="material-icons">euro_symbol</md-icon>
+          <input disabled name="iva" value="{{(vm.income.base / (1 - vm.income.iva / 100)) | number : 2}}">
+        </md-input-container>
+      </div>
+    </md-card>
+    <md-button class="md-raised md-primary" ng-click="vm.save()">Crear</md-button>
+  </div>
+</div>

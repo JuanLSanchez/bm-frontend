@@ -1,5 +1,6 @@
 <div layout="row" class="zero" layout-align="center up">
   <div flex-lg="50">
+    <md-button class="md-raised md-primary" ui-sref="income-create">Crear</md-button>
     <md-button class="md-raised md-warn" ng-click="vm.showConfirm($event)">Eliminar</md-button>
     <md-card>
       <md-table-container>
@@ -14,7 +15,7 @@
           </tr>
           </thead>
           <tbody md-body>
-          <tr md-row md-select="income" md-select-id="name" md-auto-select ng-repeat="income in vm.data">
+          <tr md-row md-select="income" md-select-id="id" md-auto-select ng-repeat="income in vm.data">
             <td md-cell>{{income.income_date}}</td>
             <td md-cell>{{income.name}}</td>
             <td md-cell>{{income.nif}}</td>

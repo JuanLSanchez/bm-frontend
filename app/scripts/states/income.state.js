@@ -18,5 +18,19 @@
                 }
             }
         })
+        .state('income-create', {
+            parent: 'site',
+            url: '/income/create',
+            data: {
+                pageTitle: 'Crear ingreso'
+            },
+            views: {
+                'container@': {
+                    templateUrl: 'views/income.create.html',
+                    controller: 'IncomeCreateController',
+                    controllerAs: 'vm'
+                }
+            }
+        })
     });
 })();
