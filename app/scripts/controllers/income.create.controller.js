@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('bmFrontendApp')
-    .controller('IncomeCreateController', function (IncomeService, $state, entity) {
+    .controller('IncomeCreateController', function (IncomeService, $state, entity, Toast) {
         var vm = this;
         var income = {
             income_date: new Date(),
@@ -11,16 +11,28 @@
             base:0.0,
             iva:21
         };
+        var exit = true;
 
         function onSuccess(result) {
-            $state.go('income');
+            Toast.showToast('Ingreso guardado', 'success-toast');
+            if (exit) {
+                $state.go('income');
+            }else {
+                income.id = null;
+                income.income_date = new Date();
+                income.name = "";
+                income.nif = "";
+                income.base = 0.0;
+                income.iva = 21;
+            }
         }
 
         function onError(result) {
-
+            Toast.showToast('No se ha podido guardar el ingreso', 'error-toast');
         }
 
-        function save() {
+        function save(e) {
+            exit = e;
             if (income.id == null) {
                 IncomeService.resource.save(income, onSuccess, onError);
             }else {
