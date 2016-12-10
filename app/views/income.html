@@ -12,6 +12,7 @@
             <th md-column md-order-by="nif"><span>Nif</span></th>
             <th md-column md-numeric md-order-by="base">Base</th>
             <th md-column md-numeric md-order-by="iva">Iva</th>
+            <th md-column>Editar</th>
           </tr>
           </thead>
           <tbody md-body>
@@ -21,6 +22,11 @@
             <td md-cell>{{income.nif}}</td>
             <td md-cell>{{income.base}} €</td>
             <td md-cell>{{income.iva}} %</td>
+            <td md-cell>
+              <md-button class="md-icon-button" aria-label="More" ui-sref="income-edit({id:income.id})">
+                <i class="material-icons">edit</i>
+              </md-button>
+            </td>
           </tr>
           </tbody>
         </table>

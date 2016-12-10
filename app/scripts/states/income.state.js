@@ -30,6 +30,30 @@
                     controller: 'IncomeCreateController',
                     controllerAs: 'vm'
                 }
+            },
+            resolve: {
+                entity: function(IncomeService, $stateParams) {
+                    return null;
+                }
+            }
+        })
+        .state('income-edit', {
+            parent: 'site',
+            url: '/income/edit/{id}',
+            data: {
+                pageTitle: 'Editar ingreso'
+            },
+            views: {
+                'container@': {
+                    templateUrl: 'views/income.create.html',
+                    controller: 'IncomeCreateController',
+                    controllerAs: 'vm'
+                }
+            },
+            resolve: {
+                entity: function(IncomeService, $stateParams) {
+                    return IncomeService.resource.get({id: $stateParams.id});
+                }
             }
         })
     });

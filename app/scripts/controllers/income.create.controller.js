@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('bmFrontendApp')
-    .controller('IncomeCreateController', function (IncomeService, $state) {
+    .controller('IncomeCreateController', function (IncomeService, $state, entity) {
         var vm = this;
         var income = {
             income_date: new Date(),
@@ -21,10 +21,17 @@
         }
 
         function save() {
-            IncomeService.resource.save(income, onSuccess, onError);
+            if (income.id == null) {
+                IncomeService.resource.save(income, onSuccess, onError);
+            }else {
+                IncomeService.resource.update(income, onSuccess, onError);
+            }
         }
 
         function init() {
+            if (entity != null) {
+                income = entity;
+            }
             vm.income = income;
             vm.max_date = new Date();
             vm.save = save;

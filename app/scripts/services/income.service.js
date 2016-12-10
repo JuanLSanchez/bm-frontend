@@ -23,10 +23,13 @@
                 'get': {method: 'GET',
                   transformResponse: function (data) {
                       data = angular.fromJson(data);
-                      data.income_date = DateUtils.convertDateTimeFromServer(data.income_date);
+                      data.income_date = new Date(data.income_date);
                       return data;
                   }},
-                'update': {method:'PUT'}
+                'update': {method:'PUT',
+                            params: {
+                                id: "@id"
+                            }}
             });
         }
 
