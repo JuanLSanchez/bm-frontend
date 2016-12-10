@@ -1,31 +1,34 @@
 <div layout="row" class="zero" layout-align="center up">
-  <md-card flex-lg="50">
-    <md-table-container>
-      <table md-table md-row-select multiple ng-model="vm.incomes" md-progress="vm.promise">
-        <thead md-head md-order="vm.order.sort" md-on-reorder="vm.reOrder">
-        <tr md-row>
-          <th md-column md-order-by="incomeDate"><span>Fecha</span></th>
-          <th md-column md-order-by="name"><span>Nombre</span></th>
-          <th md-column md-order-by="nif"><span>Nif</span></th>
-          <th md-column md-numeric md-order-by="base">Base</th>
-          <th md-column md-numeric md-order-by="iva">Iva</th>
-        </tr>
-        </thead>
-        <tbody md-body>
-        <tr md-row md-select="income" md-select-id="name" md-auto-select ng-repeat="income in vm.data">
-          <td md-cell>{{income.income_date}}</td>
-          <td md-cell>{{income.name}}</td>
-          <td md-cell>{{income.nif}}</td>
-          <td md-cell>{{income.base}} €</td>
-          <td md-cell>{{income.iva}} %</td>
-        </tr>
-        </tbody>
-      </table>
-    </md-table-container>
+  <div flex-lg="50">
+    <md-button class="md-raised md-warn" ng-click="vm.showConfirm($event)">Eliminar</md-button>
+    <md-card>
+      <md-table-container>
+        <table md-table md-row-select multiple ng-model="vm.incomes" md-progress="vm.promise">
+          <thead md-head md-order="vm.order.sort" md-on-reorder="vm.reOrder">
+          <tr md-row>
+            <th md-column md-order-by="incomeDate"><span>Fecha</span></th>
+            <th md-column md-order-by="name"><span>Nombre</span></th>
+            <th md-column md-order-by="nif"><span>Nif</span></th>
+            <th md-column md-numeric md-order-by="base">Base</th>
+            <th md-column md-numeric md-order-by="iva">Iva</th>
+          </tr>
+          </thead>
+          <tbody md-body>
+          <tr md-row md-select="income" md-select-id="name" md-auto-select ng-repeat="income in vm.data">
+            <td md-cell>{{income.income_date}}</td>
+            <td md-cell>{{income.name}}</td>
+            <td md-cell>{{income.nif}}</td>
+            <td md-cell>{{income.base}} €</td>
+            <td md-cell>{{income.iva}} %</td>
+          </tr>
+          </tbody>
+        </table>
+      </md-table-container>
 
-    <md-table-pagination md-limit="vm.pageSize" md-limit-options="[5, 10, 15]"
-                         md-page="1" md-page-select="true" md-on-paginate="vm.loadPage"
-                         md-total="{{(1+vm.links.last) * vm.pageSize}}"
-                         md-label="{{vm.mdLabel}}"></md-table-pagination>
-  </md-card>
+      <md-table-pagination md-limit="vm.pageSize" md-limit-options="[5, 10, 15]"
+                           md-page="1" md-page-select="true" md-on-paginate="vm.loadPage"
+                           md-total="{{(1+vm.links.last) * vm.pageSize}}"
+                           md-label="{{vm.mdLabel}}"></md-table-pagination>
+    </md-card>
+  </div>
 </div>

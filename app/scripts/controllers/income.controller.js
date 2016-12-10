@@ -5,7 +5,7 @@
       .module('bmFrontendApp')
       .controller('IncomeController', IncomeController);
 
-    function IncomeController(IncomeService, ParseLinks) {
+    function IncomeController(IncomeService, ParseLinks, $mdDialog) {
         var vm = this;
         var page = 1;
         var pageSize = 10;
@@ -14,6 +14,20 @@
             sort:'incomeDate',
             dir:'desc'
         };
+
+        function remove() {
+            var i = 0;
+            var total = incomes.length;
+            function add() {
+                i++;
+                if (i == total) {
+                    loadPage(vm.page, vm.pageSize);
+                }
+            }
+            while (incomes.length > 0) {
+                IncomeService.resource.delete({id:incomes.pop().id}, add, add);
+            }
+        }
 
         function loadPage(page, pageSize) {
             var query = {page: page - 1, size: pageSize, sort:order.sort + ',' + order.dir};
@@ -40,6 +54,26 @@
             loadPage(vm.page, vm.pageSize);
         }
 
+        function showConfirm(ev) {
+            // Appending dialog to document.body to cover sidenav in docs app
+            var text = '';
+            incomes.forEach(function(income) {
+                text += income.income_date + ' ' + income.name + ' ' + income.base + '€, ';
+            });
+            text = text.substr(0, text.length - 2)
+            var confirm = $mdDialog.confirm()
+              .title('¿Desea eliminar los ingresos seleccionados?')
+              .textContent(text)
+              .ariaLabel('Lucky day')
+              .targetEvent(ev)
+              .ok('Si')
+              .cancel('No');
+
+            $mdDialog.show(confirm).then(function () {
+                remove();
+            }, null);
+        }
+
         init();
 
         function init() {
@@ -56,6 +90,7 @@
                 rowsPerPage:'Elementos por página'
             }
             vm.reOrder = reOrder;
+            vm.showConfirm = showConfirm;
             loadPage(page, pageSize);
         }
     }
