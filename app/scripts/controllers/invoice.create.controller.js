@@ -7,7 +7,7 @@
         var invoice = {
             number:"",
             date_buy:new Date(),
-            supplier_id:null,
+            supplier_id:22,
             operation_id:null
         };
         var exit = true;

@@ -12,6 +12,9 @@
           <input md-no-asterisk required name="number" ng-model="vm.invoice.number">
         </md-input-container>
 
+        <p>{{vm.invoice.supplier_id}}</p>
+        <select-create-supplier supplier-id="vm.invoice.supplier_id"></select-create-supplier>
+
       </div>
     </md-card>
     <md-button class="md-raised md-primary" ng-click="vm.save(true)">Guardar</md-button>
