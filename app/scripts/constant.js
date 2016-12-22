@@ -12,7 +12,8 @@
             INCOME_URL: API_URL + '/income/:id',
             INVOICE_URL: API_URL + '/invoice/:id',
             OPERATION_URL: API_URL + '/operation/:id',
-            SECTION_URL: API_URL + '/section/:id'
+            SECTION_URL: API_URL + '/section/:id',
+            SUPPLIER_URL: API_URL + '/supplier/:id'
         }
     })());
 })();
