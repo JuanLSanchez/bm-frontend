@@ -10,7 +10,9 @@
             AUTHENTICATION_URL: API_URL + '/authenticate',
             ACCOUNT_URL: API_URL + '/account',
             INCOME_URL: API_URL + '/income/:id',
-            INVOICE_URL: API_URL + '/invoice/:id'
+            INVOICE_URL: API_URL + '/invoice/:id',
+            OPERATION_URL: API_URL + '/operation/:id',
+            SECTION_URL: API_URL + '/section/:id'
         }
     })());
 })();
