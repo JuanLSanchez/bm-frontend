@@ -15,18 +15,15 @@ function OperationController(OperationService, ParseLinks, $mdDialog, Toast) {
     };
 
     function remove() {
-        var i = 0;
-        var u = 0;
+        var i = 0, u = 0;
         var total = operations.length;
         function add(units) {
             i++;
-            if (units > 0) {
-                u++;
-            }
+            u += units;
             if (i == total) {
                 loadPage(vm.page, vm.pageSize);
                 if (u > 0) {
-                    if (u = 1) {
+                    if (u == 1) {
                         Toast.showToast('Se han eliminado ' + u + ' operacion', 'success-toast');
                     }else {
                         Toast.showToast('Se han eliminado ' + u + ' operaciones', 'success-toast');
@@ -106,6 +103,9 @@ function OperationController(OperationService, ParseLinks, $mdDialog, Toast) {
     function success() {
         Toast.showToast('Se ha guardado la operación', Toast.successStyle);
         loadPage(page, pageSize);
+        vm.operation.id = null;
+        vm.operation.name = '';
+        vm.operation.section_id = null;
     }
 
     function error() {
