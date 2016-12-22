@@ -1,6 +1,6 @@
 <div layout="row" class="zero" layout-align="center up">
   <div flex-lg="50">
-    <md-button class="md-raised md-primary" ui-sref="operation-create">Crear</md-button>
+    <operation-create operation="vm.operation" success="vm.success" error="vm.error" edition="false"></operation-create>
     <md-button class="md-raised md-warn" ng-click="vm.showConfirm($event)">Eliminar</md-button>
     <md-card>
       <md-table-container>
@@ -15,7 +15,7 @@
           <tr md-row md-select="operation" md-select-id="id" md-auto-select ng-repeat="operation in vm.data">
             <td md-cell>{{operation.name}}</td>
             <td md-cell>
-              <md-button class="md-icon-button" aria-label="More" ui-sref="operation-edit({id:operation.id})">
+              <md-button class="md-icon-button" aria-label="More" ng-click="vm.edit(operation)">
                 <i class="material-icons">edit</i>
               </md-button>
             </td>

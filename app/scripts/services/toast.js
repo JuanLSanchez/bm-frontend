@@ -4,7 +4,9 @@
     angular.module('bmFrontendApp')
     .service('Toast', function ($mdToast) {
         var service = {
-            showToast:showToast
+            showToast: showToast,
+            errorStyle: 'error-toast',
+            successStyle: 'success-toast'
         };
 
         function getToastPosition() {

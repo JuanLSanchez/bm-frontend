@@ -20,7 +20,9 @@ function OperationController(OperationService, ParseLinks, $mdDialog, Toast) {
         var total = operations.length;
         function add(units) {
             i++;
-            u += units;
+            if (units > 0) {
+                u++;
+            }
             if (i == total) {
                 loadPage(vm.page, vm.pageSize);
                 if (u > 0) {
@@ -95,6 +97,21 @@ function OperationController(OperationService, ParseLinks, $mdDialog, Toast) {
         }
     }
 
+    function edit(operation) {
+        vm.operation.id = operation.id;
+        vm.operation.name = operation.name;
+        vm.operation.section_id = operation.section_id;
+    }
+
+    function success() {
+        Toast.showToast('Se ha guardado la operación', Toast.successStyle);
+        loadPage(page, pageSize);
+    }
+
+    function error() {
+        Toast.showToast('No se ha podido guardar la operación', Toast.errorStyle);
+    }
+
     init();
 
     function init() {
@@ -105,6 +122,10 @@ function OperationController(OperationService, ParseLinks, $mdDialog, Toast) {
         vm.data = [];
         vm.pageSize = pageSize;
         vm.page = page;
+        vm.operation = {name: '', section_id: ''};
+        vm.error = error;
+        vm.success = success;
+        vm.edit = edit;
         vm.mdLabel = {
             of:'de',
             page:'Pagina',
