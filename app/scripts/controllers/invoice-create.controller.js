@@ -2,7 +2,8 @@
     'use strict';
 
     angular.module('bmFrontendApp')
-    .controller('InvoiceCreateController', function (InvoiceService, OperationService, $state, entity, Toast) {
+    .controller('InvoiceCreateController', function (InvoiceService, OperationService, SupplierService,
+                                                     $state, entity, Toast) {
         var vm = this;
         var invoice = {
             number:"",
@@ -15,7 +16,7 @@
         function onSuccess(result) {
             Toast.showToast('Ingreso guardado', 'success-toast');
             if (exit) {
-                $state.go('income');
+                $state.go('invoice');
             }else {
                 invoice.id = null;
                 invoice.number = new Date();
@@ -31,10 +32,10 @@
 
         function save(e) {
             exit = e;
-            if (income.id == null) {
-                InvoiceService.resource.save(income, onSuccess, onError);
+            if (invoice.id == null) {
+                InvoiceService.resource.save(invoice, onSuccess, onError);
             }else {
-                InvoiceService.resource.update(income, onSuccess, onError);
+                InvoiceService.resource.update(invoice, onSuccess, onError);
             }
         }
 
@@ -57,9 +58,60 @@
             vm.operation.id = result.id;
         }
 
+        function operationError() {
+            Toast.showToast('No se ha podido guardar la operación', Toast.errorStyle);
+        }
+
+        function operationSelected() {
+            OperationService.resource.get({id:vm.invoice.operation_id}, success, error);
+            function success(result) {
+                vm.operation.name = result.name;
+                vm.operation.id = result.id;
+                vm.operation.section_id = result.section_id;
+            }
+            function error() {
+                Toast.showToast('Error al recuperar el proveedor', Toast.errorStyle);
+            }
+        }
+
+        function loadSuppliers() {
+            var query = {page: 0, size: 1000, sort: 'name,asc'};
+            vm.supplierPromise = SupplierService.resource.findAll(query, function(result) {
+                while (vm.suppliers.length > 0) {
+                    vm.suppliers.pop();
+                }
+                for (var i = 0; i < result.length; i++) {
+                    vm.suppliers.push(result[i]);
+                }
+            }).$promise;
+        }
+
+        function supplierSuccess(result) {
+            Toast.showToast('Se ha guardado el proveedor', Toast.successStyle);
+            loadSuppliers();
+            vm.invoice.supplier_id = result.id;
+            vm.supplier.id = result.id;
+        }
+
+        function supplierError() {
+            Toast.showToast('No se ha podido guardar el proveedor', Toast.errorStyle);
+        }
+
+        function supplierSelected() {
+            SupplierService.resource.get({id:vm.invoice.supplier_id}, success, error);
+            function success(result) {
+                vm.supplier.name = result.name;
+                vm.supplier.id = result.id;
+                vm.supplier.nif = result.nif;
+            }
+            function error() {
+                Toast.showToast('Error al recuperar el proveedor', Toast.errorStyle);
+            }
+        }
+
         function init() {
             if (entity != null) {
-                income = entity;
+                invoice = entity;
             }
             vm.invoice = invoice;
             vm.max_date = new Date();
@@ -67,7 +119,15 @@
             vm.operation = {name: '', section_id: ''};
             vm.operations = [];
             vm.operationSuccess = operationSuccess;
+            vm.operationError = operationError;
             loadOperations();
+            vm.supplier = {name: '', nif: ''};
+            vm.suppliers = [];
+            vm.supplierSuccess = supplierSuccess;
+            vm.supplierError = supplierError;
+            loadSuppliers();
+            vm.supplierSelected = supplierSelected;
+            vm.operationSelected = operationSelected;
         }
 
         init();
