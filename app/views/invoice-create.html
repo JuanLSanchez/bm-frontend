@@ -17,6 +17,7 @@
 
     <md-card>
       <div layout-margin>
+        <md-progress-linear md-mode="indeterminate" ng-if="vm.operationPromise.$$state.status==0"></md-progress-linear>
         <md-input-container class="md-block">
           <label>Operaci&oacute;n</label>
           <md-icon class="material-icons">gavel</md-icon>
@@ -32,6 +33,7 @@
 
     <md-card>
       <div layout-margin>
+        <md-progress-linear md-mode="indeterminate" ng-if="vm.supplierPromise.$$state.status==0"></md-progress-linear>
         <md-input-container class="md-block">
           <label>Proveedor</label>
           <md-icon class="material-icons">supervisor_account</md-icon>
