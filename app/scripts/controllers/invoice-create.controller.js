@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('bmFrontendApp')
-    .controller('InvoiceCreateController', function (InvoiceService, $state, entity, Toast) {
+    .controller('InvoiceCreateController', function (InvoiceService, OperationService, $state, entity, Toast) {
         var vm = this;
         var invoice = {
             number:"",
@@ -38,6 +38,25 @@
             }
         }
 
+        function loadOperations() {
+            var query = {page: 0, size: 1000, sort: 'name,asc'};
+            vm.operationPromise = OperationService.resource.findAll(query, function(result) {
+                while (vm.operations.length > 0) {
+                    vm.operations.pop();
+                }
+                for (var i = 0; i < result.length; i++) {
+                    vm.operations.push(result[i]);
+                }
+            }).$promise;
+        }
+
+        function operationSuccess(result) {
+            Toast.showToast('Se ha guardado la operación', Toast.successStyle);
+            loadOperations();
+            vm.invoice.operation_id = result.id;
+            vm.operation.id = result.id;
+        }
+
         function init() {
             if (entity != null) {
                 income = entity;
@@ -45,6 +64,10 @@
             vm.invoice = invoice;
             vm.max_date = new Date();
             vm.save = save;
+            vm.operation = {name: '', section_id: ''};
+            vm.operations = [];
+            vm.operationSuccess = operationSuccess;
+            loadOperations();
         }
 
         init();

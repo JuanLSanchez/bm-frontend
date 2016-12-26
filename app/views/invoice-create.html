@@ -14,6 +14,22 @@
 
       </div>
     </md-card>
+
+    <md-card>
+      <div layout-margin>
+        <md-input-container class="md-block">
+          <label>Operaci&oacute;n</label>
+          <md-icon class="material-icons">gavel</md-icon>
+          <md-select ng-model="vm.invoice.operation_id">
+            <md-option ng-repeat="operation in vm.operations" ng-value="operation.id">
+              {{operation.name}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+    </md-card>
+    <operation-create operation="vm.operation" success="vm.operationSuccess" error="vm.operationError" edition="false"></operation-create>
+
     <md-button class="md-raised md-primary" ng-click="vm.save(true)">Guardar</md-button>
     <md-button class="md-raised md-primary" ng-click="vm.save(false)">Guardar y continuar</md-button>
   </div>

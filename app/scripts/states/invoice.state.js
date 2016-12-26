@@ -26,7 +26,7 @@
             },
             views: {
                 'container@': {
-                    templateUrl: 'views/invoice.create.html',
+                    templateUrl: 'views/invoice-create.html',
                     controller: 'InvoiceCreateController',
                     controllerAs: 'vm'
                 }

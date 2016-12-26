@@ -26,7 +26,7 @@
             },
             views: {
                 'container@': {
-                    templateUrl: 'views/income.create.html',
+                    templateUrl: 'views/income-create.html',
                     controller: 'IncomeCreateController',
                     controllerAs: 'vm'
                 }
@@ -45,7 +45,7 @@
             },
             views: {
                 'container@': {
-                    templateUrl: 'views/income.create.html',
+                    templateUrl: 'views/income-create.html',
                     controller: 'IncomeCreateController',
                     controllerAs: 'vm'
                 }
