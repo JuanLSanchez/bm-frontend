@@ -3,7 +3,7 @@
 
 angular.module('bmFrontendApp')
   .controller('SupplierController', SupplierController);
-function SupplierController(SupplierService, ParseLinks, Toast) {
+function SupplierController(SupplierService, ParseLinks, Toast, $mdDialog) {
     var vm = this;
     var page = 1;
     var pageSize = 10;
@@ -42,7 +42,7 @@ function SupplierController(SupplierService, ParseLinks, Toast) {
         }
 
         while (suppliers.length > 0) {
-            SupplierService.resource.delete({id:operations.pop().id}, onSuccess, onError);
+            SupplierService.resource.delete({id:suppliers.pop().id}, onSuccess, onError);
         }
     }
 
@@ -99,7 +99,7 @@ function SupplierController(SupplierService, ParseLinks, Toast) {
     }
 
     function success() {
-        Toast.showToast('Se ha guardado la operación', Toast.successStyle);
+        Toast.showToast('Se ha guardado el proveedor', Toast.successStyle);
         loadPage(page, pageSize);
         vm.supplier.id = null;
         vm.supplier.name = '';
@@ -120,7 +120,7 @@ function SupplierController(SupplierService, ParseLinks, Toast) {
         vm.data = [];
         vm.pageSize = pageSize;
         vm.page = page;
-        vm.supplier = {name: '', section_id: ''};
+        vm.supplier = {name: '', nif: ''};
         vm.error = error;
         vm.success = success;
         vm.edit = edit;
