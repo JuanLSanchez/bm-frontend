@@ -1,0 +1,27 @@
+<md-card>
+  <div layout="row" layout-align="end start">
+    <div>
+      <md-button class="md-icon-button" aria-label="More" ng-click="vm.edition = !vm.edition">
+        <i class="material-icons" ng-if="!vm.edition">expand_more</i>
+        <i class="material-icons" ng-if="vm.edition">expand_less</i>
+      </md-button>
+    </div>
+  </div>
+  <div layout-margin ng-show="vm.edition">
+    <md-input-container class="md-block">
+      <label>Base</label>
+      <md-icon class="material-icons">euro_symbol</md-icon>
+      <input md-no-asterisk required type="number" name="base" ng-model="vm.invoiceLine.base">
+    </md-input-container>
+    <md-input-container class="md-block">
+      <label>IVA</label>
+      <md-icon class="material-icons">%</md-icon>
+      <input md-no-asterisk required type="number" step="1"  name="iva" ng-model="vm.invoiceLine.iva">
+    </md-input-container>
+    <div>
+      <md-button class="md-raised md-primary md-block right" ng-click="vm.save()">Guardar</md-button>
+      <md-button class="md-raised md-primary md-block right" ng-click="vm.unselect()"
+                 ng-if="vm.operation.id!=null">Deseleccionar</md-button>
+    </div>
+  </div>
+</md-card>

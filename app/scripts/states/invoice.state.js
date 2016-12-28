@@ -48,6 +48,11 @@
                     templateUrl: 'views/invoice-create.html',
                     controller: 'InvoiceCreateController',
                     controllerAs: 'vm'
+                },
+                'complement@': {
+                    templateUrl: 'views/invoice-line.html',
+                    controller: 'InvoiceLineOfInvoiceController',
+                    controllerAs: 'vm'
                 }
             },
             resolve: {

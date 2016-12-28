@@ -13,7 +13,9 @@
             INVOICE_URL: API_URL + '/invoice/:id',
             OPERATION_URL: API_URL + '/operation/:id',
             SECTION_URL: API_URL + '/section/:id',
-            SUPPLIER_URL: API_URL + '/supplier/:id'
+            SUPPLIER_URL: API_URL + '/supplier/:id',
+            INVOICE_LINE_URL: API_URL + '/invoice_line/:id',
+            INVOICE_LINE_OF_INVOICE_URL: API_URL + '/invoice_line/invoice/:invoice_id'
         }
     })());
 })();
