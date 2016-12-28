@@ -20,7 +20,7 @@
             <td md-cell>{{income.income_date}}</td>
             <td md-cell>{{income.name}}</td>
             <td md-cell>{{income.nif}}</td>
-            <td md-cell>{{income.base}} €</td>
+            <td md-cell>{{income.base | number: 2}} &euro;</td>
             <td md-cell>{{income.iva}} %</td>
             <td md-cell>
               <md-button class="md-icon-button" aria-label="More" ui-sref="income-edit({id:income.id})">

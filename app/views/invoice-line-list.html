@@ -12,7 +12,7 @@
         </thead>
         <tbody md-body>
         <tr md-row md-select="invoiceLine" md-select-id="id" md-auto-select ng-repeat="invoiceLine in vm.data">
-          <td md-cell>{{invoiceLine.base}}</td>
+          <td md-cell>{{invoiceLine.base | number: 2}} &euro;</td>
           <td md-cell>{{invoiceLine.iva}}%</td>
           <td md-cell>
             <md-button class="md-icon-button" aria-label="More" ng-click="vm.edit(invoiceLine)">
