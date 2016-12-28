@@ -47,11 +47,12 @@
     </md-card>
     <supplier-create supplier="vm.supplier" success="vm.supplierSuccess" error="vm.supplierError" edition="false"></supplier-create>
 
-    <invoice-line-list entity="vm.invoice" reload="vm.reload" invoice-line="vm.invoiceLine"></invoice-line-list>
+    <invoice-line-list entity="vm.invoice" reload="vm.reload" invoice-line="vm.invoiceLine" ng-if="vm.invoice.id"></invoice-line-list>
     <invoice-line-create invoice-id="vm.invoice.id" invoice-line="vm.invoiceLine"
-                         success="vm.invoiceLineSuccess" error="vm.invoiceLineError" edition="false"></invoice-line-create>
+                         success="vm.invoiceLineSuccess" error="vm.invoiceLineError" edition="false" ng-if="vm.invoice.id"></invoice-line-create>
 
-    <md-button class="md-raised md-primary" ng-click="vm.save(true)">Guardar</md-button>
-    <md-button class="md-raised md-primary" ng-click="vm.save(false)">Guardar y continuar</md-button>
+    <md-button class="md-raised md-primary" ng-click="vm.save(1)" ng-if="!vm.invoice.id">A&#241;adir lineas de compra</md-button>
+    <md-button class="md-raised md-primary" ng-click="vm.save(0)">Guardar</md-button>
+    <md-button class="md-raised md-primary" ng-click="vm.save(1)">Guardar y continuar</md-button>
   </div>
 </div>

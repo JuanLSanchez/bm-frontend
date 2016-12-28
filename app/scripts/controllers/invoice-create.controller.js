@@ -15,14 +15,16 @@
 
         function onSuccess(result) {
             Toast.showToast('Ingreso guardado', 'success-toast');
-            if (exit) {
-                $state.go('invoice');
-            }else {
+            if (exit == 1) {
+                invoice.id = result.id;
+            }else if (exit == 2) {
                 invoice.id = null;
                 invoice.number = new Date();
                 invoice.date_buy = "";
                 invoice.supplier_id = null;
                 invoice.operation_id = null;
+            }else {
+                $state.go('invoice');
             }
         }
 

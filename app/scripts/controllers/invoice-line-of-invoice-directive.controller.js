@@ -8,8 +8,8 @@
         var pageSize = 5;
         var invoiceLines = [];
         var order = {
-            sort:'base',
-            dir:'desc'
+            sort:'',
+            dir:''
         };
 
         function remove() {
