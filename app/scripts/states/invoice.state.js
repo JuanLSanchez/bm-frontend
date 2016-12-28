@@ -26,7 +26,7 @@
             },
             views: {
                 'container@': {
-                    templateUrl: 'views/invoice.create.html',
+                    templateUrl: 'views/invoice-create.html',
                     controller: 'InvoiceCreateController',
                     controllerAs: 'vm'
                 }
@@ -34,6 +34,25 @@
             resolve: {
                 entity: function () {
                     return null;
+                }
+            }
+        })
+        .state('invoice-edit', {
+            parent: 'site',
+            url: '/invoice/edit/{id}',
+            data: {
+                pageTitle: 'Editar compra'
+            },
+            views: {
+                'container@': {
+                    templateUrl: 'views/invoice-create.html',
+                    controller: 'InvoiceCreateController',
+                    controllerAs: 'vm'
+                }
+            },
+            resolve: {
+                entity: function(InvoiceService, $stateParams) {
+                    return InvoiceService.resource.get({id: $stateParams.id}).$promise;
                 }
             }
         })

@@ -1,0 +1,58 @@
+<div layout="row" class="zero" layout-align="center up">
+  <div flex-lg="50" ng-cloak>
+    <md-button class="md-raised md-primary" ui-sref="invoice">Volver</md-button>
+    <md-card>
+      <div layout-margin>
+
+        <md-datepicker ng-model="vm.invoice.date_buy" md-max-date="vm.max_date"></md-datepicker>
+
+        <md-input-container class="md-block">
+          <label>Number</label>
+          <md-icon class="material-icons">looks_one</md-icon>
+          <input md-no-asterisk required name="number" ng-model="vm.invoice.number">
+        </md-input-container>
+
+      </div>
+    </md-card>
+
+    <md-card>
+      <div layout-margin>
+        <md-progress-linear md-mode="indeterminate" ng-if="vm.operationPromise.$$state.status==0"></md-progress-linear>
+        <md-input-container class="md-block">
+          <label>Operaci&oacute;n</label>
+          <md-icon class="material-icons">gavel</md-icon>
+          <md-select ng-model="vm.invoice.operation_id" md-on-close="vm.operationSelected()">
+            <md-option ng-repeat="operation in vm.operations" ng-value="operation.id">
+              {{operation.name}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+    </md-card>
+    <operation-create operation="vm.operation" success="vm.operationSuccess" error="vm.operationError" edition="false"></operation-create>
+
+    <md-card>
+      <div layout-margin>
+        <md-progress-linear md-mode="indeterminate" ng-if="vm.supplierPromise.$$state.status==0"></md-progress-linear>
+        <md-input-container class="md-block">
+          <label>Proveedor</label>
+          <md-icon class="material-icons">supervisor_account</md-icon>
+          <md-select ng-model="vm.invoice.supplier_id" md-on-close="vm.supplierSelected()">
+            <md-option ng-repeat="supplier in vm.suppliers" ng-value="supplier.id">
+              {{supplier.name}} - {{supplier.nif}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+    </md-card>
+    <supplier-create supplier="vm.supplier" success="vm.supplierSuccess" error="vm.supplierError" edition="false"></supplier-create>
+
+    <invoice-line-list entity="vm.invoice" reload="vm.reload" invoice-line="vm.invoiceLine" ng-if="vm.invoice.id"></invoice-line-list>
+    <invoice-line-create invoice-id="vm.invoice.id" invoice-line="vm.invoiceLine"
+                         success="vm.invoiceLineSuccess" error="vm.invoiceLineError" edition="false" ng-if="vm.invoice.id"></invoice-line-create>
+
+    <md-button class="md-raised md-primary" ng-click="vm.save(1)" ng-if="!vm.invoice.id">A&#241;adir lineas de compra</md-button>
+    <md-button class="md-raised md-primary" ng-click="vm.save(0)">Guardar</md-button>
+    <md-button class="md-raised md-primary" ng-click="vm.save(1)">Guardar y continuar</md-button>
+  </div>
+</div>

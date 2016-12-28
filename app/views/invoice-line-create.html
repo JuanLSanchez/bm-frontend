@@ -9,23 +9,19 @@
   </div>
   <div layout-margin ng-show="vm.edition">
     <md-input-container class="md-block">
-      <label>Nombre</label>
-      <md-icon class="material-icons">person</md-icon>
-      <input md-no-asterisk required name="name" ng-model="vm.operation.name">
+      <label>Base</label>
+      <md-icon class="material-icons">euro_symbol</md-icon>
+      <input md-no-asterisk required type="number" name="base" ng-model="vm.invoiceLine.base">
     </md-input-container>
     <md-input-container class="md-block">
-      <label>Secci&oacute;n</label>
-      <md-icon class="material-icons">bookmark_border</md-icon>
-      <md-select ng-model="vm.operation.section_id">
-        <md-option ng-repeat="section in vm.sections" ng-value="section.id">
-          {{section.name}}
-        </md-option>
-      </md-select>
+      <label>IVA</label>
+      <md-icon class="material-icons">%</md-icon>
+      <input md-no-asterisk required type="number" step="1"  name="iva" ng-model="vm.invoiceLine.iva">
     </md-input-container>
     <div>
       <md-button class="md-raised md-primary md-block right" ng-click="vm.save()">Guardar</md-button>
       <md-button class="md-raised md-primary md-block right" ng-click="vm.unselect()"
-                 ng-if="vm.operation.id!=null">Deseleccionar</md-button>
+                 ng-if="vm.invoiceLine.id!=null">Deseleccionar</md-button>
     </div>
   </div>
 </md-card>

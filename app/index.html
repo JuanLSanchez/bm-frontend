@@ -29,6 +29,7 @@
     </header>
 
     <div ui-view="container" id="container"></div>
+    <div ui-view="complement" id="complement"></div>
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
@@ -70,19 +71,25 @@
     <script src="scripts/services/section.service.js"></script>
     <script src="scripts/services/supplier.service.js"></script>
     <script src="scripts/services/invoice.service.js"></script>
+    <script src="scripts/services/invoice-line.service.js"></script>
     <script src="scripts/controllers/login.controller.js"></script>
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/navbar.controller.js"></script>
     <script src="scripts/controllers/income.controller.js"></script>
-    <script src="scripts/controllers/income.create.controller.js"></script>
+    <script src="scripts/controllers/income-create.controller.js"></script>
     <script src="scripts/controllers/invoice.controller.js"></script>
-    <script src="scripts/controllers/invoice.create.controller.js"></script>
+    <script src="scripts/controllers/invoice-create.controller.js"></script>
     <script src="scripts/controllers/operation.controller.js"></script>
     <script src="scripts/controllers/operation-create.controller.js"></script>
     <script src="scripts/controllers/supplier.controller.js"></script>
     <script src="scripts/controllers/supplier-create.controller.js"></script>
+    <script src="scripts/controllers/invoice-line-of-invoice.controller.js"></script>
+    <script src="scripts/controllers/invoice-line-create.controller.js"></script>
+    <script src="scripts/controllers/invoice-line-of-invoice-directive.controller.js"></script>
     <script src="scripts/directives/operation-create.js"></script>
     <script src="scripts/directives/supplier-create.js"></script>
+    <script src="scripts/directives/invoice-line-create.js"></script>
+    <script src="scripts/directives/invoice-line-list.js"></script>
     <!-- endbuild -->
 </body>
 </html>
