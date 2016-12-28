@@ -57,7 +57,7 @@
             },
             resolve: {
                 entity: function(InvoiceService, $stateParams) {
-                    return InvoiceService.resource.get({id: $stateParams.id});
+                    return InvoiceService.resource.get({id: $stateParams.id}).$promise;
                 }
             }
         })
