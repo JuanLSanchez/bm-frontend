@@ -109,6 +109,19 @@
             }
         }
 
+        function invoiceLineSuccess() {
+            Toast.showToast('Linea de factura guardada', 'success-toast');
+            vm.invoiceLine.id = null;
+            vm.invoiceLine.base = 0;
+            vm.invoiceLine.iva = 21;
+            vm.invoiceLine.invoice_id = vm.invoice.id;
+            vm.reload = true;
+        }
+
+        function invoiceLineError() {
+            Toast.showToast('No se ha podido guardar la linea de factura', Toast.errorStyle);
+        }
+
         function init() {
             if (entity != null) {
                 invoice = entity;
@@ -116,18 +129,25 @@
             vm.invoice = invoice;
             vm.max_date = new Date();
             vm.save = save;
+            // Operation
             vm.operation = {name: '', section_id: ''};
             vm.operations = [];
             vm.operationSuccess = operationSuccess;
             vm.operationError = operationError;
             loadOperations();
+            vm.operationSelected = operationSelected;
+            // Supplier
             vm.supplier = {name: '', nif: ''};
             vm.suppliers = [];
             vm.supplierSuccess = supplierSuccess;
             vm.supplierError = supplierError;
             loadSuppliers();
             vm.supplierSelected = supplierSelected;
-            vm.operationSelected = operationSelected;
+            // Invoice line
+            vm.invoiceLine = {id: null, base: 0, iva: 21, invoice_id: vm.invoice.id};
+            vm.invoiceLineSuccess = invoiceLineSuccess;
+            vm.invoiceLineError = invoiceLineError;
+            vm.reload = false;
         }
 
         init();
