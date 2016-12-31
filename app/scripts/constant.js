@@ -15,7 +15,8 @@
             SECTION_URL: API_URL + '/section/:id',
             SUPPLIER_URL: API_URL + '/supplier/:id',
             INVOICE_LINE_URL: API_URL + '/invoice_line/:id',
-            INVOICE_LINE_OF_INVOICE_URL: API_URL + '/invoice_line/invoice/:invoice_id'
+            INVOICE_LINE_OF_INVOICE_URL: API_URL + '/invoice_line/invoice/:invoice_id',
+            RANGE_URL: API_URL + '/:type/range'
         }
     })());
 })();
