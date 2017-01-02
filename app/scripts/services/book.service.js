@@ -4,9 +4,10 @@
 angular.module('bmFrontendApp')
   .service('BookService', BookService);
 
-function BookService($resource, ConstantURL) {
+function BookService($resource, ConstantURL, $http, Toast, FileSaver) {
     var service = {
         range: range(),
+        document: document,
         resultToObject: resultToObject,
         numberToQuarter: numberToQuarter
     };
@@ -39,6 +40,32 @@ function BookService($resource, ConstantURL) {
 
     function numberToQuarter(number) {
         return quarters[number];
+    }
+
+    function document(type, data) {
+        $http({
+            url: ConstantURL.DOCUMENT_URL.replace(':type', type),
+            method: 'POST',
+            responseType: 'arraybuffer',
+            data: data, //this is your json data string
+            headers: {
+                'Content-type': 'application/json',
+                'Accept': 'application/vnd.ms-excel'
+            }
+        }).then(success, error);
+
+        function success(data) {
+            var fileName = data.headers()['filename'];
+            var blob = new Blob([data.data], {
+                type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            });
+            FileSaver.saveAs(blob, fileName);
+            Toast.showToast("Se ha generado el documento '" + fileName + "'", Toast.successStyle);
+        }
+
+        function error() {
+            Toast.showToast("No se ha podido generar el libro", Toast.errorStyle);
+        }
     }
 
     function resultToObject(result) {

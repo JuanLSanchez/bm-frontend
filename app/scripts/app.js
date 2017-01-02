@@ -19,5 +19,6 @@ angular
     'ngAria',
     'ui.router',
     'ngStorage',
-    'md.data.table'
+    'md.data.table',
+    'ngFileSaver'
   ]);

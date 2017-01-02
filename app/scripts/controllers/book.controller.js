@@ -44,11 +44,14 @@ function BookController(BookService, Toast) {
     }
 
     function incomeBook() {
+        BookService.document('income',
+          {quarter: vm.income.quarter, year: vm.income.year});
 
     }
 
     function invoiceBook() {
-
+        BookService.document('invoice',
+          {quarter: vm.invoice.quarter, year: vm.invoice.year});
     }
 
     function init() {
