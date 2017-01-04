@@ -5,7 +5,7 @@
       .module('bmFrontendApp')
       .controller('IncomeController', IncomeController);
 
-    function IncomeController(IncomeService, ParseLinks, $mdDialog) {
+    function IncomeController(IncomeService, ParseLinks, $mdDialog, Toast) {
         var vm = this;
         var page = 1;
         var pageSize = 10;
@@ -16,16 +16,35 @@
         };
 
         function remove() {
-            var i = 0;
+            var i = 0, u = 0;
             var total = incomes.length;
-            function add() {
+            function add(units) {
                 i++;
+                u += units;
                 if (i == total) {
                     loadPage(vm.page, vm.pageSize);
+                    if (u > 0) {
+                        if (u == 1) {
+                            Toast.showToast('Se han eliminado ' + u + ' ingresos', 'success-toast');
+                        }else {
+                            Toast.showToast('Se han eliminado ' + u + ' ingresos', 'success-toast');
+                        }
+                    }else {
+                        Toast.showToast('No se ha eliminado ningun ingreso', 'error-toast');
+                    }
                 }
             }
+
+            function onSuccess() {
+                add(1);
+            }
+
+            function onError() {
+                add(0);
+            }
+
             while (incomes.length > 0) {
-                IncomeService.resource.delete({id:incomes.pop().id}, add, add);
+                IncomeService.resource.delete({id:incomes.pop().id}, onSuccess, onError);
             }
         }
 

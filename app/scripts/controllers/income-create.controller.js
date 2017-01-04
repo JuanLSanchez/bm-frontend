@@ -14,7 +14,7 @@
         var exit = true;
 
         function onSuccess(result) {
-            Toast.showToast('Ingreso guardado', 'success-toast');
+            Toast.showToast('Ingreso guardado', Toast.successStyle);
             if (exit) {
                 $state.go('income');
             }else {
@@ -28,7 +28,7 @@
         }
 
         function onError(result) {
-            Toast.showToast('No se ha podido guardar el ingreso', 'error-toast');
+            Toast.showToast('No se ha podido guardar el ingreso', Toast.errorStyle);
         }
 
         function save(e) {
