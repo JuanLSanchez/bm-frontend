@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('bmFrontendApp')
-    .controller('InvoiceController', function (InvoiceService, ParseLinks, $mdDialog) {
+    .controller('InvoiceController', function (InvoiceService, ParseLinks, $mdDialog, Toast) {
         var vm = this;
         var page = 1;
         var pageSize = 10;
@@ -13,16 +13,35 @@
         };
 
         function remove() {
-            var i = 0;
+            var i = 0, u = 0;
             var total = invoices.length;
-            function add() {
+            function add(units) {
                 i++;
+                u += units;
                 if (i == total) {
                     loadPage(vm.page, vm.pageSize);
+                    if (u > 0) {
+                        if (u == 1) {
+                            Toast.showToast('Se han eliminado ' + u + ' compras', 'success-toast');
+                        }else {
+                            Toast.showToast('Se han eliminado ' + u + ' compras', 'success-toast');
+                        }
+                    }else {
+                        Toast.showToast('No se ha eliminado ninguna compra', 'error-toast');
+                    }
                 }
             }
+
+            function onSuccess() {
+                add(1);
+            }
+
+            function onError() {
+                add(0);
+            }
+
             while (invoices.length > 0) {
-                InvoiceService.resource.delete({id:invoice.pop().id}, add, add);
+                InvoiceService.resource.delete({id:invoices.pop().id}, onSuccess, onError);
             }
         }
 
@@ -87,7 +106,7 @@
                 of:'de',
                 page:'Pagina',
                 rowsPerPage:'Elementos por página'
-            }
+            };
             vm.reOrder = reOrder;
             vm.showConfirm = showConfirm;
             loadPage(page, pageSize);
