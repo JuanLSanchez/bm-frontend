@@ -2,7 +2,8 @@
     'use strict';
 
     angular.module('bmFrontendApp')
-    .controller('InvoiceLineOfInvoiceDirectiveController', function ($scope, InvoiceLineService, ParseLinks, $mdDialog, Toast) {
+    .controller('InvoiceLineOfInvoiceDirectiveController', function ($scope, InvoiceLineService, ParseLinks, $mdDialog,
+                                                                     Toast) {
         var vm = this;
         var page = 1;
         var pageSize = 5;
@@ -119,10 +120,8 @@
         init();
 
         function init() {
-            vm.promise;
             vm.loadPage = loadPage;
             vm.invoiceLines = invoiceLines;
-            vm.links;
             vm.data = [];
             vm.pageSize = pageSize;
             vm.page = page;
@@ -130,7 +129,7 @@
                 of:'de',
                 page:'Pagina',
                 rowsPerPage:'Elementos por página'
-            },
+            };
             vm.reOrder = reOrder;
             vm.showConfirm = showConfirm;
             if (vm.entity) {
@@ -152,7 +151,7 @@
                     vm.reload = false;
                     loadPage(page, pageSize);
                 }
-            })
+            });
         }
 
     });

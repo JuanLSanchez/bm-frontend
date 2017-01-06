@@ -14,17 +14,17 @@
     <md-input-container class="md-block">
       <label>Base</label>
       <md-icon class="material-icons">euro_symbol</md-icon>
-      <input md-no-asterisk required type="number" name="base" ng-model="vm.invoiceLine.base">
+      <input md-no-asterisk required type="number" name="base" ng-model="vm.invoiceLine.base" ng-blur="vm.calculateWithBase()">
     </md-input-container>
     <md-input-container class="md-block">
       <label>IVA</label>
       <md-icon class="material-icons">%</md-icon>
-      <input md-no-asterisk required type="number" step="1"  name="iva" ng-model="vm.invoiceLine.iva">
+      <input md-no-asterisk required type="number" step="1"  name="iva" ng-model="vm.invoiceLine.iva" ng-blur="vm.calculateWithIva()">
     </md-input-container>
     <md-input-container class="md-block">
       <label>Total</label>
       <md-icon class="material-icons">euro_symbol</md-icon>
-      <input disabled name="iva" value="{{(vm.invoiceLine.base / (1 - vm.invoiceLine.iva / 100)) | number : 2}}">
+      <input name="total" ng-model="vm.invoiceLine.total" ng-blur="vm.calculateWithTotal()">
     </md-input-container>
     <div>
       <md-button class="md-raised md-primary md-block right" ng-click="vm.save()">Guardar</md-button>
