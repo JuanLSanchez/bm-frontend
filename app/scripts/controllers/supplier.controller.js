@@ -49,7 +49,9 @@ function SupplierController(SupplierService, ParseLinks, Toast, $mdDialog) {
     function loadPage(page, pageSize) {
         var query = {page: page - 1, size: pageSize, sort:order.sort + ',' + order.dir};
 
-        vm.promise = SupplierService.resource.findAll(query, function(result, headers) {
+        vm.promise = SupplierService.resource.findAll(query, success, error).$promise;
+
+        function success(result, headers) {
             vm.links = ParseLinks.parse(headers('link'));
             while (vm.data.length > 0) {
                 vm.data.pop();
@@ -57,7 +59,10 @@ function SupplierController(SupplierService, ParseLinks, Toast, $mdDialog) {
             for (var i = 0; i < result.length; i++) {
                 vm.data.push(result[i]);
             }
-        }).$promise;
+        }
+        function error() {
+            Toast.showToast("No se ha podido cargar la lista de proveedores", Toast.errorStyle);
+        }
     }
 
     function reOrder(sort) {

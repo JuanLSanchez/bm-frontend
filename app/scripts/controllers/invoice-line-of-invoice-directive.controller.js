@@ -49,7 +49,9 @@
         function loadPage(page, pageSize) {
             var query = {invoice_id: vm.entity.id, page: page - 1, size: pageSize, sort:order.sort + ',' + order.dir};
 
-            vm.promise = InvoiceLineService.invoiceResource.findAll(query, function(result, headers) {
+            vm.promise = InvoiceLineService.invoiceResource.findAll(query, success, error).$promise;
+
+            function success(result, headers) {
                 vm.links = ParseLinks.parse(headers('link'));
                 while (vm.data.length > 0) {
                     vm.data.pop();
@@ -57,7 +59,11 @@
                 for (var i = 0; i < result.length; i++) {
                     vm.data.push(result[i]);
                 }
-            }).$promise;
+            }
+            function error() {
+                Toast.showToast("No se ha podido cargar la lista de lineas de compra", Toast.errorStyle);
+            }
+
         }
 
         function reOrder(sort) {

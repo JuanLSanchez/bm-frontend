@@ -51,7 +51,9 @@
         function loadPage(page, pageSize) {
             var query = {page: page - 1, size: pageSize, sort:order.sort + ',' + order.dir};
             //query[order.sort + '.dir'] = order.dir;
-            vm.promise = IncomeService.resource.findAll(query, function(result, headers) {
+            vm.promise = IncomeService.resource.findAll(query, success, error).$promise;
+
+            function success(result, headers) {
                 vm.links = ParseLinks.parse(headers('link'));
                 while (vm.data.length > 0) {
                     vm.data.pop();
@@ -59,7 +61,10 @@
                 for (var i = 0; i < result.length; i++) {
                     vm.data.push(result[i]);
                 }
-            }).$promise;
+            }
+            function error() {
+                Toast.showToast("No se ha podido cargar la lista de ingresos", Toast.errorStyle);
+            }
         }
 
         function reOrder(sort) {
