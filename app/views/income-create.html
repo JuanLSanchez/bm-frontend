@@ -21,19 +21,19 @@
         <md-input-container class="md-block">
           <label>Base</label>
           <md-icon class="material-icons">euro_symbol</md-icon>
-          <input type="number" step="0.01" name="base" ng-model="vm.income.base">
+          <input type="number" step="0.01" name="base" ng-model="vm.income.base" ng-blur="vm.calculateWithBase()">
         </md-input-container>
 
         <md-input-container class="md-block">
           <label>IVA</label>
           <md-icon class="material-icons">%</md-icon>
-          <input name="iva" ng-model="vm.income.iva">
+          <input name="iva" ng-model="vm.income.iva" ng-blur="vm.calculateWithIva()">
         </md-input-container>
 
         <md-input-container class="md-block">
           <label>Total</label>
           <md-icon class="material-icons">euro_symbol</md-icon>
-          <input disabled name="iva" value="{{(vm.income.base / (1 - vm.income.iva / 100)) | number : 2}}">
+          <input name="total" ng-model="vm.income.total" ng-blur="vm.calculateWithTotal()">
         </md-input-container>
       </div>
     </md-card>
