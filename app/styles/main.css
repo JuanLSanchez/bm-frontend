@@ -19,3 +19,6 @@ md-toast.md-success-toast-theme div.md-toast-content {
   background-color: green !important;
   font-weight: bold;
 }
+.padding-10px{
+  padding: 10px !important;
+}
