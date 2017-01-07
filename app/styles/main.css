@@ -22,3 +22,13 @@ md-toast.md-success-toast-theme div.md-toast-content {
 .padding-10px{
   padding: 10px !important;
 }
+.is-selected{
+  background-color: midnightblue;
+  color: white;
+  pointer-events: none;
+  cursor: default;
+}
+.is-selected-son{
+  background-color: midnightblue;
+  color: white;
+}
