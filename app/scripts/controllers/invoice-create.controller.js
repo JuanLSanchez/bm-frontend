@@ -117,6 +117,7 @@
             vm.invoiceLine.base = 0;
             vm.invoiceLine.iva = 21;
             vm.invoiceLine.invoice_id = vm.invoice.id;
+            vm.invoiceLine.total = 0;
             vm.reload = true;
         }
 
@@ -146,7 +147,7 @@
             loadSuppliers();
             vm.supplierSelected = supplierSelected;
             // Invoice line
-            vm.invoiceLine = {id: null, base: 0, iva: 21, invoice_id: vm.invoice.id};
+            vm.invoiceLine = {id: null, base: 0, iva: 21, total: 0, invoice_id: vm.invoice.id};
             vm.invoiceLineSuccess = invoiceLineSuccess;
             vm.invoiceLineError = invoiceLineError;
             vm.reload = false;

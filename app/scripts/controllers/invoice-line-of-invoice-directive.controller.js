@@ -3,7 +3,7 @@
 
     angular.module('bmFrontendApp')
     .controller('InvoiceLineOfInvoiceDirectiveController', function ($scope, InvoiceLineService, ParseLinks, $mdDialog,
-                                                                     Toast) {
+                                                                     Toast, Tax) {
         var vm = this;
         var page = 1;
         var pageSize = 5;
@@ -104,6 +104,7 @@
             vm.invoiceLine.base = invoiceLine.base;
             vm.invoiceLine.iva = invoiceLine.iva;
             vm.invoiceLine.invoice_id = invoiceLine.invoice_id;
+            vm.invoiceLine.total = calculateTotal(invoiceLine);
         }
 
         function success() {
@@ -112,6 +113,7 @@
             vm.invoiceLine.id = null;
             vm.invoiceLine.base = 0;
             vm.invoiceLine.iva = 21;
+            vm.invoiceLine.total = 0;
         }
 
         function error() {
@@ -121,6 +123,10 @@
         function reload() {
             console.log('reload');
             loadPage(page, pageSize);
+        }
+
+        function calculateTotal(invoiceLine){
+            return Tax.baseAndIvaToTotal(invoiceLine.base, invoiceLine.iva);
         }
 
         init();
@@ -141,12 +147,12 @@
             if (vm.entity) {
                 loadPage(page, pageSize);
                 vm.invoiceId = vm.entity.id;
-                vm.invoiceLine = {iva:21, base:0, invoice_id:vm.invoiceId};
+                vm.invoiceLine = {iva:21, base:0, total:0, invoice_id:vm.invoiceId};
             }else {
                 $scope.$watch('vm.entity', function() {
                     loadPage(page, pageSize);
                     vm.invoiceId = vm.entity.id;
-                    vm.invoiceLine = {iva:21, base:0, invoice_id:vm.invoiceId};
+                    vm.invoiceLine = {iva:21, base:0, total:0, invoice_id:vm.invoiceId};
                 });
             }
             vm.edit = edit;
@@ -158,6 +164,7 @@
                     loadPage(page, pageSize);
                 }
             });
+            vm.calculateTotal = calculateTotal;
         }
 
     });
