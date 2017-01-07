@@ -1,0 +1,59 @@
+<div layout="row" class="zero" layout-align="center up">
+  <div flex-lg="50">
+    <md-card>
+      <md-progress-linear md-mode="indeterminate" ng-if="vm.incomePromise.$$state.status==0"></md-progress-linear>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">Libro de ingresos</span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content>
+        <md-input-container class="md-block">
+          <label>A&ntilde;o</label>
+          <md-select ng-model="vm.income.year" md-on-close="vm.loadIncomeQuarter()">
+            <md-option ng-repeat="(k, v) in vm.incomeRange" ng-value="k">
+              {{k}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Trimestre</label>
+          <md-select ng-model="vm.income.quarter">
+            <md-option ng-repeat="quarter in vm.incomeQuarters" ng-value="quarter.id">
+              {{quarter.name}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+        <md-button class="md-raised md-primary" ng-click="vm.incomeBook()">Obtener documento</md-button>
+      </md-card-content>
+    </md-card>
+
+    <md-card>
+      <md-progress-linear md-mode="indeterminate" ng-if="vm.invoicePromise.$$state.status==0"></md-progress-linear>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">Libro de compras</span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content>
+        <md-input-container class="md-block">
+          <label>A&ntilde;o</label>
+          <md-select ng-model="vm.invoice.year" md-on-close="vm.loadInvoiceQuarter()">
+            <md-option ng-repeat="(k, v) in vm.invoiceRange" ng-value="k">
+              {{k}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Trimestre</label>
+          <md-select ng-model="vm.invoice.quarter">
+            <md-option ng-repeat="quarter in vm.invoiceQuarters" ng-value="quarter.id">
+              {{quarter.name}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+        <md-button class="md-raised md-primary" ng-click="vm.invoiceBook()">Obtener documento</md-button>
+      </md-card-content>
+    </md-card>
+  </div>
+</div>

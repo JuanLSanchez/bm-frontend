@@ -1,0 +1,29 @@
+<md-card>
+  <div layout="row">
+    <div flex="85">
+      <h5 layout-margin>Guardar Proveedor</h5>
+    </div>
+    <div flex="15" layout="row" layout-align="end start">
+      <md-button class="md-icon-button" aria-label="More" ng-click="vm.edition = !vm.edition">
+        <i class="material-icons" ng-if="!vm.edition">expand_more</i>
+        <i class="material-icons" ng-if="vm.edition">expand_less</i>
+      </md-button>
+    </div>
+  </div>
+  <div layout-margin ng-show="vm.edition">
+    <md-input-container class="md-block">
+      <label>Nombre</label>
+      <md-icon class="material-icons">person</md-icon>
+      <input md-no-asterisk required name="name" ng-model="vm.supplier.name">
+    </md-input-container>
+    <md-input-container class="md-block">
+      <label>NIF</label>
+      <md-icon class="material-icons">assignment_ind</md-icon>
+      <input name="nif" ng-model="vm.supplier.nif">
+    </md-input-container>
+    <div>
+      <md-button class="md-raised md-primary md-block right" ng-click="vm.save()">Guardar</md-button>
+      <md-button class="md-raised md-primary md-block right" ng-click="vm.unselect()" ng-if="vm.supplier.id!=null">Deseleccionar</md-button>
+    </div>
+  </div>
+</md-card>

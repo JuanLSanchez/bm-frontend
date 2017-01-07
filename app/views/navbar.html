@@ -1,0 +1,84 @@
+<div ng-show="vm.isAuthenticated()">
+  <md-toolbar class="md-hue-2">
+    <div class="md-toolbar-tools">
+      <md-button class="md-icon-button" aria-label="Settings" ng-click="vm.sidenav('left')">
+        <md-icon style="color:white;font:bold;"><i class="material-icons">menu</i></md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-sidenav class="md-sidenav-left" md-component-id="left"
+              md-disable-backdrop md-whiteframe="4">
+    <md-toolbar class="md-theme-light">
+    </md-toolbar>
+    <md-content>
+      <md-list>
+        <md-list-item class="md-1-line" ng-click="vm.sidenav('left')">
+          <md-button aria-label="comment" class="md-icon-button">
+            <i class="material-icons">close</i>
+          </md-button>
+          <span>Cerrar navegador</span>
+          <md-divider></md-divider>
+        </md-list-item>
+        <md-list-item class="md-1-line">
+          <md-divider></md-divider>
+        </md-list-item>
+
+        <md-list-item class="md-1-line" ui-sref="home">
+          <md-button aria-label="comment" class="md-icon-button">
+            <i class="material-icons">home</i>
+          </md-button>
+          <span>Inicio</span>
+          <md-divider></md-divider>
+        </md-list-item>
+        <md-list-item class="md-1-line" ui-sref="books">
+          <md-button aria-label="comment" class="md-icon-button">
+            <i class="material-icons">chrome_reader_mode</i>
+          </md-button>
+          <span>Libros</span>
+          <md-divider></md-divider>
+        </md-list-item>
+        <md-list-item class="md-1-line" ui-sref="income">
+          <md-button aria-label="comment" class="md-icon-button">
+            <i class="material-icons">euro_symbol</i>
+          </md-button>
+          <span>Ingresos</span>
+          <md-divider></md-divider>
+        </md-list-item>
+        <md-list-item class="md-1-line" ui-sref="invoice">
+          <md-button aria-label="comment" class="md-icon-button">
+            <i class="material-icons">shopping_cart</i>
+          </md-button>
+          <span>Compras</span>
+          <md-divider></md-divider>
+        </md-list-item>
+        <md-list-item class="md-1-line" ui-sref="operation">
+          <md-button aria-label="comment" class="md-icon-button">
+            <i class="material-icons">gavel</i>
+          </md-button>
+          <span>Operaciones</span>
+          <md-divider></md-divider>
+        </md-list-item>
+        <md-list-item class="md-1-line" ui-sref="supplier">
+          <md-button aria-label="comment" class="md-icon-button">
+            <i class="material-icons">supervisor_account</i>
+          </md-button>
+          <span>Proveedores</span>
+          <md-divider></md-divider>
+        </md-list-item>
+
+        <md-list-item class="md-1-line">
+          <md-divider></md-divider>
+        </md-list-item>
+        <md-list-item class="md-1-line" ng-click="vm.logout()">
+          <md-button aria-label="comment" class="md-icon-button">
+            <md-icon><i class="material-icons">exit_to_app</i></md-icon>
+          </md-button>
+          <span>Salir</span>
+          <md-divider></md-divider>
+        </md-list-item>
+      </md-list>
+    </md-content>
+
+  </md-sidenav>
+</div>

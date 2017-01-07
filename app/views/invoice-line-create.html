@@ -1,0 +1,36 @@
+<md-card>
+  <div layout="row">
+    <div flex="85">
+      <h5 layout-margin>Guardar Linea de Compra</h5>
+    </div>
+    <div flex="15" layout="row" layout-align="end start">
+      <md-button class="md-icon-button" aria-label="More" ng-click="vm.edition = !vm.edition">
+        <i class="material-icons" ng-if="!vm.edition">expand_more</i>
+        <i class="material-icons" ng-if="vm.edition">expand_less</i>
+      </md-button>
+    </div>
+  </div>
+  <div layout-margin ng-show="vm.edition">
+    <md-input-container class="md-block">
+      <label>Base</label>
+      <md-icon class="material-icons">euro_symbol</md-icon>
+      <input md-no-asterisk required type="number" name="base" ng-model="vm.invoiceLine.base" ng-blur="vm.calculateWithBase()">
+    </md-input-container>
+    <md-input-container class="md-block">
+      <label>IVA</label>
+      <md-icon class="material-icons">%</md-icon>
+      <input md-no-asterisk required type="number" step="1"  name="iva" ng-model="vm.invoiceLine.iva"
+             ng-blur="vm.calculateWithIva()">
+    </md-input-container>
+    <md-input-container class="md-block">
+      <label>Total</label>
+      <md-icon class="material-icons">euro_symbol</md-icon>
+      <input name="total" ng-model="vm.invoiceLine.total" ng-blur="vm.calculateWithTotal()">
+    </md-input-container>
+    <div>
+      <md-button class="md-raised md-primary md-block right" ng-click="vm.save()">Guardar</md-button>
+      <md-button class="md-raised md-primary md-block right" ng-click="vm.unselect()"
+                 ng-if="vm.invoiceLine.id!=null">Deseleccionar</md-button>
+    </div>
+  </div>
+</md-card>

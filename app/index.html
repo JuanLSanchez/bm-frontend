@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+    <link rel="stylesheet" href="bower_components/angular-material-data-table/dist/md-data-table.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+  </head>
+  <body ng-app="bmFrontendApp">
+    <!--[if lte IE 8]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+
+    <header>
+      <div ui-view="navbar"></div>
+    </header>
+
+    <div ui-view="container" id="container"></div>
+    <div ui-view="complement" id="complement"></div>
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/angular-material/angular-material.js"></script>
+    <script src="bower_components/ngstorage/ngStorage.js"></script>
+    <script src="bower_components/angular-material-data-table/dist/md-data-table.js"></script>
+    <script src="bower_components/blob-polyfill/Blob.js"></script>
+    <script src="bower_components/file-saver.js/FileSaver.js"></script>
+    <script src="bower_components/angular-file-saver/dist/angular-file-saver.bundle.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/run.js"></script>
+    <script src="scripts/state.handler.js"></script>
+    <script src="scripts/constant.js"></script>
+    <script src="scripts/config.js"></script>
+    <script src="scripts/states/login.state.js"></script>
+    <script src="scripts/states/home.state.js"></script>
+    <script src="scripts/states/income.state.js"></script>
+    <script src="scripts/states/invoice.state.js"></script>
+    <script src="scripts/states/opeartion.state.js"></script>
+    <script src="scripts/states/supplier.state.js"></script>
+    <script src="scripts/states/books.state.js"></script>
+    <script src="scripts/services/auth.service.js"></script>
+    <script src="scripts/services/auth.jwt.service.js"></script>
+    <script src="scripts/services/principal.service.js"></script>
+    <script src="scripts/services/account.service.js"></script>
+    <script src="scripts/services/income.service.js"></script>
+    <script src="scripts/services/parse.links.js"></script>
+    <script src="scripts/services/date.utils.js"></script>
+    <script src="scripts/services/toast.js"></script>
+    <script src="scripts/services/operation.service.js"></script>
+    <script src="scripts/services/section.service.js"></script>
+    <script src="scripts/services/supplier.service.js"></script>
+    <script src="scripts/services/invoice.service.js"></script>
+    <script src="scripts/services/invoice-line.service.js"></script>
+    <script src="scripts/services/book.service.js"></script>
+    <script src="scripts/services/tax.js"></script>
+    <script src="scripts/controllers/login.controller.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/navbar.controller.js"></script>
+    <script src="scripts/controllers/income.controller.js"></script>
+    <script src="scripts/controllers/income-create.controller.js"></script>
+    <script src="scripts/controllers/invoice.controller.js"></script>
+    <script src="scripts/controllers/invoice-create.controller.js"></script>
+    <script src="scripts/controllers/operation.controller.js"></script>
+    <script src="scripts/controllers/operation-create.controller.js"></script>
+    <script src="scripts/controllers/supplier.controller.js"></script>
+    <script src="scripts/controllers/supplier-create.controller.js"></script>
+    <script src="scripts/controllers/invoice-line-of-invoice.controller.js"></script>
+    <script src="scripts/controllers/invoice-line-create.controller.js"></script>
+    <script src="scripts/controllers/invoice-line-of-invoice-directive.controller.js"></script>
+    <script src="scripts/controllers/book.controller.js"></script>
+    <script src="scripts/directives/operation-create.js"></script>
+    <script src="scripts/directives/supplier-create.js"></script>
+    <script src="scripts/directives/invoice-line-create.js"></script>
+    <script src="scripts/directives/invoice-line-list.js"></script>
+    <!-- endbuild -->
+</body>
+</html>

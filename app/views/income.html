@@ -1,0 +1,41 @@
+<div layout="row" class="zero" layout-align="center up">
+  <div flex-lg="50">
+    <md-button class="md-raised md-primary" ui-sref="income-create">Crear</md-button>
+    <md-button class="md-raised md-warn" ng-click="vm.showConfirm($event)">Eliminar</md-button>
+    <md-card>
+      <md-table-container>
+        <table md-table md-row-select multiple ng-model="vm.incomes" md-progress="vm.promise">
+          <thead md-head md-order="vm.order.sort" md-on-reorder="vm.reOrder">
+          <tr md-row>
+            <th md-column md-order-by="incomeDate" class="padding-10px"><span>Fecha</span></th>
+            <th md-column md-order-by="name" class="padding-10px"><span>Nombre</span></th>
+            <th md-column md-order-by="nif" class="padding-10px"><span>Nif</span></th>
+            <th md-column md-numeric md-order-by="base" class="padding-10px">Base</th>
+            <th md-column md-numeric md-order-by="iva" class="padding-10px">Iva</th>
+            <th md-column class="padding-10px">Editar</th>
+          </tr>
+          </thead>
+          <tbody md-body>
+          <tr md-row md-select="income" md-select-id="id" md-auto-select ng-repeat="income in vm.data">
+            <td md-cell class="padding-10px">{{income.income_date}}</td>
+            <td md-cell class="padding-10px">{{income.name}}</td>
+            <td md-cell class="padding-10px">{{income.nif}}</td>
+            <td md-cell class="padding-10px">{{income.base | number: 2}} &euro;</td>
+            <td md-cell class="padding-10px">{{income.iva}} %</td>
+            <td md-cell class="padding-10px">
+              <md-button class="md-icon-button" aria-label="More" ui-sref="income-edit({id:income.id})">
+                <i class="material-icons">edit</i>
+              </md-button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </md-table-container>
+
+      <md-table-pagination md-limit="vm.pageSize" md-limit-options="[5, 10, 15]"
+                           md-page="1" md-page-select="true" md-on-paginate="vm.loadPage"
+                           md-total="{{(1+vm.links.last) * vm.pageSize}}"
+                           md-label="{{vm.mdLabel}}"></md-table-pagination>
+    </md-card>
+  </div>
+</div>

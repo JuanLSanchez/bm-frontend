@@ -1,0 +1,25 @@
+<div layout="row" class="zero" layout-align="center center" style="height: 100%">
+  <md-card flex-lg="33">
+    <form role="form" ng-submit="vm.login($event)" flex="100" layout-margin>
+      <md-input-container class="md-block">
+        <label>Usuario</label>
+        <md-icon class="material-icons">person</md-icon>
+        <input md-no-asterisk required name="username" ng-model="vm.username">
+      </md-input-container>
+      <md-input-container class="md-block">
+        <label>Contraseña</label>
+        <md-icon class="material-icons">lock</md-icon>
+        <input minlength="4" required md-no-asterisk name="password" ng-model="vm.password"
+               type="password">
+      </md-input-container>
+      <md-input-container class="md-block">
+        <md-checkbox ng-model="vm.rememberMe" aria-label="rememberMe" class="md-primary">
+          Recuerdame
+        </md-checkbox>
+      </md-input-container>
+
+      <md-button class="md-raised md-primary" type="submit">Identificarse</md-button>
+      <md-button class="md-raised md-warn" ng-click="vm.clean()">Borrar</md-button>
+    </form>
+  </md-card>
+</div>
