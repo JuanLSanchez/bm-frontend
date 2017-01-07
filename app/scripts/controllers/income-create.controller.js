@@ -2,14 +2,15 @@
     'use strict';
 
     angular.module('bmFrontendApp')
-    .controller('IncomeCreateController', function (IncomeService, $state, entity, Toast) {
+    .controller('IncomeCreateController', function (IncomeService, $state, entity, Toast, Tax) {
         var vm = this;
         var income = {
             income_date: new Date(),
             name:"",
             nif:"",
             base:0.0,
-            iva:21
+            iva:21,
+            total:0.0
         };
         var exit = true;
 
@@ -24,6 +25,7 @@
                 income.nif = "";
                 income.base = 0.0;
                 income.iva = 21;
+                income.total = calculateTotal(income);
             }
         }
 
@@ -42,29 +44,40 @@
 
         function calculateWithBase() {
             if (vm.income.iva) {
-                var total = (vm.income.base / (1 - vm.income.iva / 100));
+                var total = calculateTotal(vm.income);
                 vm.income.total = Math.round(total * 100.0) / 100;
             }
         }
 
         function calculateWithIva() {
             if (vm.income.base && vm.income.base != 0) {
-                var total = (vm.income.base / (1 - vm.income.iva / 100));
+                var total = calculateTotal(vm.income);
                 vm.income.total = Math.round(total * 100.0) / 100;
             }else if (vm.income.total && vm.income.total != 0) {
-                vm.income.base = vm.income.total * (1 - vm.income.iva / 100);
+                var base = calculateBase(vm.income);
+                vm.income.base = Math.round(base * 100.0) / 100;
             }
         }
 
         function calculateWithTotal() {
             if (vm.income.iva && vm.income.iva != 0) {
-                vm.income.base = vm.income.total * (1 - vm.income.iva / 100);
+                var base = calculateBase(vm.income);
+                vm.income.base = Math.round(base * 100.0) / 100;
             }
+        }
+
+        function calculateTotal(income) {
+            return Tax.baseAndIvaToTotal(income.base, income.iva);
+        }
+
+        function calculateBase(income) {
+            return Tax.totalAndIvaToBase(income.total, income.iva);
         }
 
         function init() {
             if (entity != null) {
                 income = entity;
+                income.total = calculateTotal(entity);
             }
             vm.income = income;
             vm.max_date = new Date();
