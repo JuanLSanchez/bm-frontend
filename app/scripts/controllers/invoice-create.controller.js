@@ -16,14 +16,13 @@
         function onSuccess(result) {
             Toast.showToast('Compra guardada', 'success-toast');
             if (exit == 1) {
-                invoice.id = result.id;
+                // Save and add invoice lines
+                $state.go('invoice-edit', {id:result.id});
             }else if (exit == 2) {
-                invoice.id = null;
-                invoice.number = new Date();
-                invoice.date_buy = "";
-                invoice.supplier_id = null;
-                invoice.operation_id = null;
+                // Save and continue
+                $state.go('invoice-create');
             }else {
+                // List invoice
                 $state.go('invoice');
             }
         }
@@ -72,7 +71,7 @@
                 vm.operation.section_id = result.section_id;
             }
             function error() {
-                Toast.showToast('Error al recuperar el proveedor', Toast.errorStyle);
+                Toast.showToast('Error al recuperar la operación', Toast.errorStyle);
             }
         }
 
