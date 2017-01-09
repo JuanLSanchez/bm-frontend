@@ -14,7 +14,7 @@
         var exit = true;
 
         function onSuccess(result) {
-            Toast.showToast('Compra guardad', 'success-toast');
+            Toast.showToast('Compra guardada', 'success-toast');
             if (exit == 1) {
                 invoice.id = result.id;
             }else if (exit == 2) {
