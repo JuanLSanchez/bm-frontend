@@ -17,10 +17,18 @@
             Toast.showToast('Compra guardada', 'success-toast');
             if (exit == 1) {
                 // Save and add invoice lines
-                $state.go('invoice-edit', {id:result.id});
+                if ($state.current.name == 'invoice-edit') {
+                    $state.reload();
+                }else {
+                    $state.go('invoice-edit', {id:result.id}, {reload: true});
+                }
             }else if (exit == 2) {
                 // Save and continue
-                $state.go('invoice-create');
+                if ($state.current.name == 'invoice-create') {
+                    $state.reload();
+                }else {
+                    $state.go('invoice-create', {reload: true});
+                }
             }else {
                 // List invoice
                 $state.go('invoice');

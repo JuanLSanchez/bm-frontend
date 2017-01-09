@@ -19,13 +19,7 @@
             if (exit) {
                 $state.go('income');
             }else {
-                income.id = null;
-                income.income_date = new Date();
-                income.name = "";
-                income.nif = "";
-                income.base = 0.0;
-                income.iva = 21;
-                income.total = calculateTotal(income);
+                $state.reload();
             }
         }
 
