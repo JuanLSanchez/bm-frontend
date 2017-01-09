@@ -27,9 +27,18 @@
                       return data;
                   }},
                 'update': {method:'PUT',
-                            params: {
-                                id: "@id"
-                            }}
+                          params: {
+                              id: "@id"
+                          },
+                          transformRequest: function (data) {
+                              data.income_date = DateUtils.convertToUtc(data.income_date);
+                              return angular.toJson(data);
+                          }},
+                'save': {method:'POST',
+                        transformRequest: function (data) {
+                            data.income_date = DateUtils.convertToUtc(data.income_date);
+                            return angular.toJson(data);
+                        }}
             });
         }
 
