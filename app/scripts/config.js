@@ -26,6 +26,10 @@
         $mdDateLocaleProvider.shortDays = ['D', 'L', 'M', 'X', 'J', 'V', 'S'];
         $mdDateLocaleProvider.firstDayOfWeek = 1;
 
+        $mdDateLocaleProvider.formatDate = function(date) {
+            return date.toLocaleDateString();
+        };
+
         $mdThemingProvider.theme('dark-grey').backgroundPalette('grey').dark();
         $mdThemingProvider.theme('dark-green').backgroundPalette('green').dark();
         $mdThemingProvider.theme('dark-orange').backgroundPalette('orange').dark();
