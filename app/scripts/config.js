@@ -4,7 +4,7 @@
     angular.module('bmFrontendApp')
       .config(config);
 
-    function config($urlRouterProvider, $stateProvider, $qProvider, $mdDateLocaleProvider) {
+    function config($urlRouterProvider, $stateProvider, $qProvider, $mdDateLocaleProvider, $mdThemingProvider) {
         $qProvider.errorOnUnhandledRejections(false);
         $urlRouterProvider.otherwise('/');
         $stateProvider.state('site', {
@@ -25,5 +25,12 @@
         $mdDateLocaleProvider.days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
         $mdDateLocaleProvider.shortDays = ['D', 'L', 'M', 'X', 'J', 'V', 'S'];
         $mdDateLocaleProvider.firstDayOfWeek = 1;
+
+        $mdThemingProvider.theme('dark-grey').backgroundPalette('grey').dark();
+        $mdThemingProvider.theme('dark-green').backgroundPalette('green').dark();
+        $mdThemingProvider.theme('dark-orange').backgroundPalette('orange').dark();
+        $mdThemingProvider.theme('dark-blue').backgroundPalette('blue').dark();
+        $mdThemingProvider.theme('dark-red').backgroundPalette('red').dark();
+        $mdThemingProvider.theme('dark-brown').backgroundPalette('brown').dark();
     }
 })();

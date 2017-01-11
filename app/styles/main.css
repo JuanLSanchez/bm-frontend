@@ -32,3 +32,6 @@ md-toast.md-success-toast-theme div.md-toast-content {
   background-color: midnightblue;
   color: white;
 }
+.hand{
+  cursor: pointer;
+}
