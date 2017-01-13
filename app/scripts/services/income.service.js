@@ -7,7 +7,8 @@
 
     function IncomeService ($resource, ConstantURL, DateUtils) {
         var service = {
-            resource: resource()
+            resource: resource(),
+            evolution: evolution
         };
 
         function resource() {

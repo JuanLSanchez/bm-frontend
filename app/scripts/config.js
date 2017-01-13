@@ -27,7 +27,7 @@
         $mdDateLocaleProvider.firstDayOfWeek = 1;
 
         $mdDateLocaleProvider.formatDate = function(date) {
-            return date.toLocaleDateString();
+            return date ? date.toLocaleDateString() : null;
         };
 
         $mdThemingProvider.theme('dark-grey').backgroundPalette('grey').dark();

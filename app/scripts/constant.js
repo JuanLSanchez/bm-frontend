@@ -17,7 +17,8 @@
             INVOICE_LINE_URL: API_URL + '/invoice_line/:id',
             INVOICE_LINE_OF_INVOICE_URL: API_URL + '/invoice_line/invoice/:invoice_id',
             RANGE_URL: API_URL + '/:type/range',
-            DOCUMENT_URL: API_URL + '/:type/document'
+            DOCUMENT_URL: API_URL + '/:type/document',
+            STATISTICS_EVOLUTION_URL: API_URL + '/:type/statistic/evolution'
         }
     })());
 })();
