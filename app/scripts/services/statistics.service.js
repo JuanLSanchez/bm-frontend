@@ -11,7 +11,8 @@ function StatisticsService($resource, ConstantURL) {
 
     function evolution() {
         return $resource(ConstantURL.STATISTICS_EVOLUTION_URL, {}, {
-            'get': {method: 'GET'}
+            'get': {method: 'GET'},
+            'findAll': {method: 'GET', isArray: true},
         });
     }
 

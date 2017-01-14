@@ -8,19 +8,24 @@ function StatisticsController(StatisticsService, Toast, BookService) {
     var vm = this;
 
     var evolutionChart;
+    var donutChart;
     var evolutionAxis;
+    var supplierEvolutionChart;
+    var supplierDonutChart;
+    var supplierEvolutionAxis;
 
-    function evolution(start, end) {
-        evolutionAxis = ['x'];
-        start = moment(start.format('YYYY-MM-DD'));
-        end = moment(end.format('YYYY-MM-DD'));
+    function createEvolutionAxis(start, end) {
+        var result = ['x'];
         var index = moment(start);
         while (index < end) {
-            evolutionAxis.push(index.format('YYYY-MM-DD'));
+            result.push(index.format('YYYY-MM-DD'));
             index.add(1, 'days');
         }
-        var config = {
-            bindto: '#evolution_chart',
+        return result;
+    }
+    function createConfigurationChart(id, evolutionAxis) {
+        return {
+            bindto: '#' + id,
             data: {
                 x: 'x',
                 columns: [evolutionAxis]
@@ -36,25 +41,78 @@ function StatisticsController(StatisticsService, Toast, BookService) {
             tooltip: {
                 format: {
                     value: function (value, ratio, id) {
-                        return Math.round(value * 100) / 100;
+                        return Math.round(value * 100) / 100 + ' €';
                     }
                 }
             }
         };
+    }
+    function createConfigurationDonut(id, title) {
+        return {
+                bindto: '#' + id,
+                data: {
+                  columns: [],
+                  type : 'donut'
+              },
+                donut: {
+                    title: title
+                },
+                tooltip: {
+                    format: {
+                        value: function (value, ratio, id) {
+                            return Math.round(value * 100) / 100 + ' €';
+                        }
+                    }
+                }
+            };
+    }
+    function evolution(start, end) {
+        start = moment(start.format('YYYY-MM-DD'));
+        end = moment(end.format('YYYY-MM-DD'));
+        evolutionAxis = createEvolutionAxis(start, end);
+        var config = createConfigurationChart('evolution_chart', evolutionAxis);
+        var donutConfig = createConfigurationDonut('donut_chart', '');
         if (!evolutionChart) {
             evolutionChart = c3.generate(config);
         }else {
             evolutionChart.destroy();
             evolutionChart = c3.generate(config);
         }
+        if (!donutChart) {
+            donutChart = c3.generate(donutConfig);
+        }else {
+            donutChart.destroy();
+            donutChart = c3.generate(donutConfig);
+        }
 
         loadEvolution(start, end, 'Ingresos', 'income');
         loadEvolution(start, end, 'Gastos', 'invoice_line');
+    }
+    function supplierEvolution(start, end) {
+        start = moment(start.format('YYYY-MM-DD'));
+        end = moment(end.format('YYYY-MM-DD'));
+        supplierEvolutionAxis = createEvolutionAxis(start, end);
+        var config = createConfigurationChart('supplier_evolution_chart', supplierEvolutionAxis);
+        var supplierDonutConfig = createConfigurationDonut('supplier_donut_chart', '');
+        if (!supplierEvolutionChart) {
+            supplierEvolutionChart = c3.generate(config);
+        }else {
+            supplierEvolutionChart.destroy();
+            supplierEvolutionChart = c3.generate(config);
+        }
+        if (!supplierDonutChart) {
+            supplierDonutChart = c3.generate(supplierDonutConfig);
+        }else {
+            supplierDonutChart.destroy();
+            supplierDonutChart = c3.generate(supplierDonutConfig);
+        }
+        loadSupplierEvolution(start, end);
 
     }
 
     function loadEvolution(start, end, title, type) {
         var incomes = [title];
+        vm.total[title] = 0;
 
         StatisticsService.evolution.get(
           {type:type, start:start.format('YYYY-MM-DD'), end:end.format('YYYY-MM-DD')}, success, error);
@@ -62,11 +120,17 @@ function StatisticsController(StatisticsService, Toast, BookService) {
         function success(result) {
             evolutionAxis.slice(1).forEach(function(day) {
                 incomes.push(result[day]);
+                vm.total[title] += result[day];
             });
             evolutionChart.load({
                 columns: [
                   evolutionAxis,
                   incomes
+                ]
+            });
+            donutChart.load({
+                columns: [
+                    [title, vm.total[title]]
                 ]
             });
             evolutionChart.hide([title]);
@@ -77,6 +141,39 @@ function StatisticsController(StatisticsService, Toast, BookService) {
         }
     }
 
+    function loadSupplierEvolution(start, end) {
+        StatisticsService.evolution.findAll(
+          {type:'supplier', start:start.format('YYYY-MM-DD'), end:end.format('YYYY-MM-DD')}, success, error);
+
+        function success(result) {
+            result.forEach(function(supplierEvolution) {
+                var array = [supplierEvolution.name];
+                vm.supplierTotal[supplierEvolution.name] = 0;
+                supplierEvolutionAxis.slice(1).forEach(function(day) {
+                    array.push(supplierEvolution.evolution[day]);
+                    vm.supplierTotal[supplierEvolution.name] += supplierEvolution.evolution[day];
+                });
+                supplierEvolutionChart.load({
+                    columns: [
+                      supplierEvolutionAxis,
+                      array
+                    ]
+                });
+                supplierDonutChart.load({
+                    columns: [
+                      [supplierEvolution.name, vm.supplierTotal[supplierEvolution.name]]
+                    ]
+                });
+            });
+            supplierEvolutionChart.hide();
+        }
+
+        function error() {
+            Toast.showToast('Error al carga la evolución de proveedores', Toast.errorStyle);
+        }
+
+    }
+
     function invoiceRangeSuccess(result) {
         if (vm.min == null || vm.min > vm.evolutionDate.min) {
             vm.evolutionDate.min = result.min;
@@ -85,9 +182,9 @@ function StatisticsController(StatisticsService, Toast, BookService) {
             vm.evolutionDate.max = result.max;
         }
         vm.evolutionRange.min = moment(result.max).subtract(1, 'M').toDate();
+        vm.supplierEvolutionRange.min = moment(result.max).subtract(1, 'M').toDate();
         vm.evolutionRange.max = result.max;
-
-        reloadEvolution();
+        vm.supplierEvolutionRange.max = result.max;
     }
     function invoiceRangeError() {
         Toast.showToast('No se ha podido obtener el rango de las compras', Toast.errorStyle);
@@ -107,6 +204,12 @@ function StatisticsController(StatisticsService, Toast, BookService) {
     function reloadEvolution() {
         evolution(moment(vm.evolutionRange.min), moment(vm.evolutionRange.max));
     }
+    function reloadSupplierEvolution() {
+        supplierEvolution(moment(vm.supplierEvolutionRange.min), moment(vm.supplierEvolutionRange.max));
+    }
+    function classColor() {
+        return vm.total['Ingresos'] > vm.total['Gastos'] ? 'text-green' : 'text-red';
+    }
 
     function init() {
 
@@ -114,7 +217,12 @@ function StatisticsController(StatisticsService, Toast, BookService) {
         BookService.range.get({type: 'income'}, incomeRangeSuccess, incomeRangeError);
         vm.evolutionDate = {min:null, max:null};
         vm.evolutionRange = {min:null, max:null};
+        vm.supplierEvolutionRange = {min:null, max:null};
         vm.reloadEvolution = reloadEvolution;
+        vm.reloadSupplierEvolution = reloadSupplierEvolution;
+        vm.total = {};
+        vm.supplierTotal = {};
+        vm.classColor = classColor;
     }
 
     init();

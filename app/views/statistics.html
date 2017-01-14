@@ -3,7 +3,7 @@
     <md-card>
       <md-title>
         <md-card-title-text layout-align="center center" layout="row">
-          <h3>Evoluci&oacute;n</h3>
+          <h3>Gastos e Ingresos</h3>
         </md-card-title-text>
       </md-title>
       <md-text layout-margin>
@@ -26,6 +26,42 @@
           </md-button>
         </div>
         <div id="evolution_chart"></div>
+        <div>
+          <div id="donut_chart"></div>
+          <h4 ng-if="vm.total['Ingresos']||vm.total['Gastos']" class="text-center">
+            Beneficios: <span ng-class="vm.classColor()">{{vm.total['Ingresos']-vm.total['Gastos'] |number:2}} &euro;</span>
+          </h4>
+        </div>
+      </md-text>
+    </md-card>
+
+    <md-card>
+      <md-title>
+        <md-card-title-text layout-align="center center" layout="row">
+          <h3>Proveedores</h3>
+        </md-card-title-text>
+      </md-title>
+      <md-text layout-margin>
+
+        <div layout-align="center up" layout="row">
+          <md-input-container>
+            <label>Inicio</label>
+            <md-datepicker ng-model="vm.supplierEvolutionRange.min"
+                           md-max-date="vm.supplierEvolutionRange.max"
+                           md-min-date="vm.evolutionDate.min"></md-datepicker>
+          </md-input-container>
+          <md-input-container>
+            <label>Fin</label>
+            <md-datepicker ng-model="vm.supplierEvolutionRange.max"
+                           md-max-date="vm.evolutionDate.max"
+                           md-min-date="vm.supplierEvolutionRange.min"></md-datepicker>
+          </md-input-container>
+          <md-button class="md-icon-button" aria-label="More" ng-click="vm.reloadSupplierEvolution()">
+            <i class="material-icons">autorenew</i>
+          </md-button>
+        </div>
+        <div id="supplier_evolution_chart"></div>
+        <div id="supplier_donut_chart"></div>
       </md-text>
     </md-card>
   </div>

@@ -35,3 +35,12 @@ md-toast.md-success-toast-theme div.md-toast-content {
 .hand{
   cursor: pointer;
 }
+.text-center{
+  text-align: center;
+}
+.text-green{
+  color:darkgreen;
+}
+.text-red{
+  color:darkred;
+}
