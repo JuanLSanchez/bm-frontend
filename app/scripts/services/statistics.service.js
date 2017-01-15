@@ -9,8 +9,14 @@ function StatisticsService($resource, ConstantURL) {
         evolution:evolution(),
         createConfigurationChart:createConfigurationChart,
         createConfigurationDonut:createConfigurationDonut,
-        configureChart:configureChart
+        configureChart:configureChart,
+        createConfigurationBar:createConfigurationBar,
+        weekCategories:weekCategories()
     };
+
+    function weekCategories(){
+        return ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
+    }
 
     function evolution() {
         return $resource(ConstantURL.STATISTICS_EVOLUTION_URL, {}, {
@@ -22,18 +28,8 @@ function StatisticsService($resource, ConstantURL) {
     function createConfigurationChart(id, evolutionAxis) {
         return {
             bindto: '#' + id,
-            data: {
-                x: 'x',
-                columns: [evolutionAxis]
-            },
-            axis: {
-                x: {
-                    type: 'timeseries',
-                    tick: {
-                        format: '%Y-%m-%d'
-                    }
-                }
-            },
+            data: {x: 'x', columns: [evolutionAxis]},
+            axis: {x: {type: 'timeseries', tick: {format: '%Y-%m-%d'}}},
             tooltip: {
                 format: {
                     value: function (value, ratio, id) {
@@ -46,13 +42,29 @@ function StatisticsService($resource, ConstantURL) {
     function createConfigurationDonut(id, title) {
         return {
             bindto: '#' + id,
-            data: {
-                columns: [],
-                type : 'donut'
+            data: {columns: [], type : 'donut'},
+            donut: {title: title},
+            tooltip: {
+                format: {
+                    value: function (value, ratio, id) {
+                        return Math.round(value * 100) / 100 + ' €';
+                    }
+                }
+            }
+        };
+    }
+
+    function createConfigurationBar(id) {
+        return {
+            bindto: '#' + id,
+            data: {columns: [], type: 'bar'},
+            axis: {
+                x: {
+                    type: 'category',
+                    categories: weekCategories()
+                }
             },
-            donut: {
-                title: title
-            },
+            bar: {width: {ratio: 0.9}},
             tooltip: {
                 format: {
                     value: function (value, ratio, id) {

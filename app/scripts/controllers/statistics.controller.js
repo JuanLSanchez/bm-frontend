@@ -11,6 +11,7 @@ function StatisticsController(StatisticsService, Toast, BookService) {
     var donutChart;
     var evolutionAxis;
     var supplierEvolutionChart;
+    var barChart;
     var supplierDonutChart;
     var supplierEvolutionAxis;
 
@@ -26,20 +27,56 @@ function StatisticsController(StatisticsService, Toast, BookService) {
 
     function evolution(start, end) {
         start = moment(start.format('YYYY-MM-DD'));
-        end = moment(end.format('YYYY-MM-DD'));
+        end = moment(end.format('YYYY-MM-DD')).add(1, 'days');
         evolutionAxis = createEvolutionAxis(start, end);
         var config = StatisticsService.createConfigurationChart('evolution_chart', evolutionAxis);
         var donutConfig = StatisticsService.createConfigurationDonut('donut_chart', '');
 
         evolutionChart = StatisticsService.configureChart(evolutionChart, config);
         donutChart = StatisticsService.configureChart(donutChart, donutConfig);
+        barChart = StatisticsService.configureChart(barChart, StatisticsService.createConfigurationBar('bar_chart'));
 
         loadEvolution(start, end, 'Ingresos', 'income');
         loadEvolution(start, end, 'Gastos', 'invoice_line');
+
+        barChart.data.colors({
+            'Ingresos': function(d) {
+                if (d.value == vm.bestDayOfWeek.incomes) {
+                    return 'green';
+                }else {
+                    return '#1f77b4';
+                }
+            },
+            'Gastos': function(d) {
+                if (d.value == vm.bestDayOfWeek.invoices) {
+                    return 'red';
+                }else {
+                    return '#ff7f0e';
+                }
+            }});
+        evolutionChart.data.colors({
+            'Ingresos': function(d) {
+                if (d.value == vm.bestDay.incomes) {
+                    return 'green';
+                }else {
+                    return '#1f77b4';
+                }
+            },
+          'Gastos': function(d) {
+              if (d.value == vm.bestDay.invoices) {
+                  return 'red';
+              }else {
+                  return '#ff7f0e';
+              }
+        }});
+        donutChart.data.colors({
+            'Ingresos': '#1f77b4',
+            'Gastos': '#ff7f0e'
+        });
     }
     function supplierEvolution(start, end) {
         start = moment(start.format('YYYY-MM-DD'));
-        end = moment(end.format('YYYY-MM-DD'));
+        end = moment(end.format('YYYY-MM-DD')).add(1, 'days');
         supplierEvolutionAxis = createEvolutionAxis(start, end);
         var config = StatisticsService.createConfigurationChart('supplier_evolution_chart', supplierEvolutionAxis);
         var supplierDonutConfig = StatisticsService.createConfigurationDonut('supplier_donut_chart', '');
@@ -53,14 +90,22 @@ function StatisticsController(StatisticsService, Toast, BookService) {
     function loadEvolution(start, end, title, type) {
         var incomes = [title];
         vm.total[title] = 0;
+        var week = [0, 0, 0, 0, 0, 0, 0];
 
         StatisticsService.evolution.get(
           {type:type, start:start.format('YYYY-MM-DD'), end:end.format('YYYY-MM-DD')}, success, error);
 
         function success(result) {
             evolutionAxis.slice(1).forEach(function(day) {
-                incomes.push(result[day]);
-                vm.total[title] += result[day];
+                var base = result[day];
+                incomes.push(base);
+                vm.total[title] += base;
+                week[moment(day).format('e')] += base;
+                if (title == 'Ingresos' && vm.bestDay.incomes < base) {
+                    vm.bestDay.incomes = base;
+                }else if (title == 'Gastos' && vm.bestDay.invoices < base) {
+                    vm.bestDay.invoices = base;
+                }
             });
             evolutionChart.load({
                 columns: [
@@ -73,6 +118,21 @@ function StatisticsController(StatisticsService, Toast, BookService) {
                     [title, vm.total[title]]
                 ]
             });
+            week[week.length] = week[0];
+            week[0] = title;
+            for (var i = 1; i < week.length; i++) {
+                var amount = week[i];
+                if (title == 'Ingresos') {
+                    if (vm.bestDayOfWeek.incomes < amount) {
+                        vm.bestDayOfWeek.incomes = amount;
+                    }
+                }else if (title == 'Gastos') {
+                    if (vm.bestDayOfWeek.invoices < amount) {
+                        vm.bestDayOfWeek.invoices = amount;
+                    }
+                }
+            };
+            barChart.load({columns: [week]});
             evolutionChart.hide([title]);
             evolutionChart.show([title]);
         }
@@ -163,6 +223,8 @@ function StatisticsController(StatisticsService, Toast, BookService) {
         vm.total = {};
         vm.supplierTotal = {};
         vm.classColor = classColor;
+        vm.bestDayOfWeek = {incomes:null, invoices:null};
+        vm.bestDay = {incomes:null, invoices:null};
     }
 
     init();

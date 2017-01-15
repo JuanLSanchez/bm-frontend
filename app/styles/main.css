@@ -44,3 +44,9 @@ md-toast.md-success-toast-theme div.md-toast-content {
 .text-red{
   color:darkred;
 }
+.without-margin{
+  margin: 0px;
+}
+.text-bold{
+  font-weight: bold;
+}
