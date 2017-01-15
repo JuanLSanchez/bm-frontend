@@ -23,67 +23,16 @@ function StatisticsController(StatisticsService, Toast, BookService) {
         }
         return result;
     }
-    function createConfigurationChart(id, evolutionAxis) {
-        return {
-            bindto: '#' + id,
-            data: {
-                x: 'x',
-                columns: [evolutionAxis]
-            },
-            axis: {
-                x: {
-                    type: 'timeseries',
-                    tick: {
-                        format: '%Y-%m-%d'
-                    }
-                }
-            },
-            tooltip: {
-                format: {
-                    value: function (value, ratio, id) {
-                        return Math.round(value * 100) / 100 + ' €';
-                    }
-                }
-            }
-        };
-    }
-    function createConfigurationDonut(id, title) {
-        return {
-                bindto: '#' + id,
-                data: {
-                  columns: [],
-                  type : 'donut'
-              },
-                donut: {
-                    title: title
-                },
-                tooltip: {
-                    format: {
-                        value: function (value, ratio, id) {
-                            return Math.round(value * 100) / 100 + ' €';
-                        }
-                    }
-                }
-            };
-    }
+
     function evolution(start, end) {
         start = moment(start.format('YYYY-MM-DD'));
         end = moment(end.format('YYYY-MM-DD'));
         evolutionAxis = createEvolutionAxis(start, end);
-        var config = createConfigurationChart('evolution_chart', evolutionAxis);
-        var donutConfig = createConfigurationDonut('donut_chart', '');
-        if (!evolutionChart) {
-            evolutionChart = c3.generate(config);
-        }else {
-            evolutionChart.destroy();
-            evolutionChart = c3.generate(config);
-        }
-        if (!donutChart) {
-            donutChart = c3.generate(donutConfig);
-        }else {
-            donutChart.destroy();
-            donutChart = c3.generate(donutConfig);
-        }
+        var config = StatisticsService.createConfigurationChart('evolution_chart', evolutionAxis);
+        var donutConfig = StatisticsService.createConfigurationDonut('donut_chart', '');
+
+        evolutionChart = StatisticsService.configureChart(evolutionChart, config);
+        donutChart = StatisticsService.configureChart(donutChart, donutConfig);
 
         loadEvolution(start, end, 'Ingresos', 'income');
         loadEvolution(start, end, 'Gastos', 'invoice_line');
@@ -92,22 +41,13 @@ function StatisticsController(StatisticsService, Toast, BookService) {
         start = moment(start.format('YYYY-MM-DD'));
         end = moment(end.format('YYYY-MM-DD'));
         supplierEvolutionAxis = createEvolutionAxis(start, end);
-        var config = createConfigurationChart('supplier_evolution_chart', supplierEvolutionAxis);
-        var supplierDonutConfig = createConfigurationDonut('supplier_donut_chart', '');
-        if (!supplierEvolutionChart) {
-            supplierEvolutionChart = c3.generate(config);
-        }else {
-            supplierEvolutionChart.destroy();
-            supplierEvolutionChart = c3.generate(config);
-        }
-        if (!supplierDonutChart) {
-            supplierDonutChart = c3.generate(supplierDonutConfig);
-        }else {
-            supplierDonutChart.destroy();
-            supplierDonutChart = c3.generate(supplierDonutConfig);
-        }
-        loadSupplierEvolution(start, end);
+        var config = StatisticsService.createConfigurationChart('supplier_evolution_chart', supplierEvolutionAxis);
+        var supplierDonutConfig = StatisticsService.createConfigurationDonut('supplier_donut_chart', '');
 
+        supplierEvolutionChart = StatisticsService.configureChart(supplierEvolutionChart, config);
+        supplierDonutChart = StatisticsService.configureChart(supplierDonutChart, supplierDonutConfig);
+
+        loadSupplierEvolution(start, end);
     }
 
     function loadEvolution(start, end, title, type) {
