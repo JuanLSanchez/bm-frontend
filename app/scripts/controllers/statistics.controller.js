@@ -119,7 +119,7 @@ function StatisticsController(StatisticsService, Toast, BookService) {
                 ]
             });
             week[week.length] = week[0];
-            week = title;
+            week[0] = title;
             for (var i = 1; i < week.length; i++) {
                 var amount = week[i];
                 if (title == 'Ingresos') {
